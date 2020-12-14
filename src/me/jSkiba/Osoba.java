@@ -10,6 +10,7 @@ public class Osoba {
         this.nazwisko = nazwisko;
     }
 
+    //GETTERY
     public String getImie() {
         return imie;
     }
@@ -17,4 +18,5 @@ public class Osoba {
     public String getNazwisko() {
         return nazwisko;
     }
+
 }
