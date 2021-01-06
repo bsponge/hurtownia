@@ -4,10 +4,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Zamowienia {
-     private List<Zamowienie> listaZamowien;
 
-     public Zamowienia(){
-         listaZamowien = new LinkedList<>();
+     //Singleton
+     private static final Zamowienia INSTANCE = new Zamowienia();
+
+     private LinkedList<Zamowienie> listaZamowien;
+
+
+     //Zwraca instancje singletona
+     public static Zamowienia getInstance() {
+          return INSTANCE;
+     }
+
+
+     //Singleton - konstruktor prywatny
+     private Zamowienia(){
+          this.listaZamowien = new LinkedList<Zamowienie>();
      }
 
      public void realizujZamowienie(String idPracownika, String idZamowienia){

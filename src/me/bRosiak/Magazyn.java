@@ -24,9 +24,9 @@ public class Magazyn {
 	}
 
 	/*
-	 * Je﷿eli mamy ju﷿ gotowa list﷿ produkt﷿w, to mo﷿emy od razu j﷿ doda﷿ do magazynu za pomoc﷿ tego konstruktora.
-	 * !WA﷿NE!
-	 * Konstruktor kopiuje list﷿ produkt﷿w a nie zapisuje jej orgina﷿.
+	 * Jezeli mamy juz gotowa liste produktow, to mozemy od razu ja dodac do magazynu za pomoca tego konstruktora.
+	 * WAZNE *
+	 * Konstruktor kopiuje liste produktow a nie zapisuje jej oryginal.
 	 */
 
 	private Magazyn(Map<Produkt, Integer> produkty){
