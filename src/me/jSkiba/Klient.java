@@ -24,8 +24,7 @@ public class Klient extends Osoba {
     Korzysta z metod klasy Koszyk
      */
 
-    // zakladam ze klasa Zamowienia jest singletonem oraz nalezy zmienic dobieranie id zamowienia
-
+    // metoda zwraca true jezeli zamowienie moze zostac zlozone w przeciwnym razie zwraca false
     public boolean zlozZamowienie() {
         Magazyn magazyn = Magazyn.getInstance();
         if (magazyn != null) {
