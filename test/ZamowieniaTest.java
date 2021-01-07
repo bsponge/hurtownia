@@ -19,5 +19,17 @@ public class ZamowieniaTest {
         zamowienia.dodajZamowienie(zamowienie);
         assertTrue(zamowienia.getListaZamowien().contains(zamowienie));
     }
-    
+
+    @Test
+    public void usunZamowienieTest(){
+        Klient klient = new Klient("Imie", "Nazwisko");
+        Zamowienie zamowienie = new Zamowienie(klient, "Kraj",
+                "Miejscowosc", "Ulica", "Kod", new Date());
+
+        Zamowienia zamowienia = Zamowienia.getInstance();
+        zamowienia.dodajZamowienie(zamowienie);
+        zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
+        assertFalse(zamowienia.getListaZamowien().contains(zamowienie));
+    }
+
 }

@@ -2,6 +2,7 @@ package me.sRewilak;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class Zamowienia {
 
@@ -34,7 +35,7 @@ public class Zamowienia {
           listaZamowien.add(zamowienie);
      }
 
-     public void usunZamowienie(String idZamowienia){
+     public void usunZamowienie(UUID idZamowienia){
          
      }
 
