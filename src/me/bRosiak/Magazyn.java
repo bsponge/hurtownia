@@ -21,23 +21,24 @@ public class Magazyn {
 	// Prywatne konstruktory odkad klasa jest singletonem
 
 	private Magazyn(){
+		produkty = new ConcurrentHashMap<>();
 	}
 
 	/*
-	 * Je﷿eli mamy ju﷿ gotowa list﷿ produkt﷿w, to mo﷿emy od razu j﷿ doda﷿ do magazynu za pomoc﷿ tego konstruktora.
-	 * !WA﷿NE!
-	 * Konstruktor kopiuje list﷿ produkt﷿w a nie zapisuje jej orgina﷿.
+	 * Jezeli mamy juz gotowa liste produktow, to mozemy od razu juz dodadac do magazynu za pomoca tego konstruktora.
+	 * !WAZNE!
+	 * Konstruktor kopiuje liste produktdow a nie zapisuje jej orginalow.
 	 */
 
-	private Magazyn(Map<Produkt, Integer> produkty){
-		this.produkty = new ConcurrentHashMap<>();
-		for(Produkt p : produkty.keySet())
-			this.produkty.put(new Produkt(p), produkty.get(p));
-	}
+//	private Magazyn(Map<Produkt, Integer> produkty){
+//		this.produkty = new ConcurrentHashMap<>();
+//		for(Produkt p : produkty.keySet())
+//			this.produkty.put(new Produkt(p), produkty.get(p));
+//	}
 	
 	/*
 	 * Metody dodajProdukt(), usunProdukt(), modyfikujProdukt()
-	 * s﷿u﷿﷿ do zarz﷿dzania magazynem przez pracownik﷿w.
+	 * sluza do zarzadzania magazynem przez pracownikow.
 	 * Gotowy tylko szkielet.
 	 */
 	
