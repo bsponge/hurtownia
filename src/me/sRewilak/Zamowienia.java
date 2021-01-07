@@ -31,7 +31,7 @@ public class Zamowienia {
      }
 
      public void dodajZamowienie(Zamowienie zamowienie){
-
+          listaZamowien.add(zamowienie);
      }
 
      public void usunZamowienie(String idZamowienia){
