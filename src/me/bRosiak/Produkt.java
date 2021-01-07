@@ -23,7 +23,7 @@ public class Produkt {
  * Konstuktor, który bêdzie u¿ywany najpewniej domyœlnie do tworzenia produktow
  * Zak³ada pobranie ju¿ wczeœniej danych z plików 
  */
-	Produkt(String nazwa, double cenaJednostkowa, String producent, Jednostka jednostka){
+	public Produkt(String nazwa, double cenaJednostkowa, String producent, Jednostka jednostka){
 		this.nazwa = nazwa;
 		this.cenaJednostkowa = cenaJednostkowa;
 		this.producent = producent;
@@ -35,7 +35,7 @@ public class Produkt {
  * Je¿eli nie chcesz mêczyæ siê z weryfikacj¹ danych z plików, u¿yj tego konstruktora.
  * Póki co jest TYLKO szkielet 
  */
-	Produkt(File f){
+	public Produkt(File f){
 		
 	}
 	
@@ -44,7 +44,7 @@ public class Produkt {
  * do kopiowania ju¿ istniej¹cej listy produktów.
  */
 	
-	Produkt(Produkt p){
+	public Produkt(Produkt p){
 		this.nazwa = p.nazwa;
 		this.cenaJednostkowa = p.cenaJednostkowa;
 		this.producent = p.producent;
