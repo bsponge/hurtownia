@@ -1,8 +1,11 @@
 package me.sRewilak;
 
+import me.bRosiak.Produkt;
 import me.jSkiba.Klient;
+import me.jSkiba.Koszyk;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 public class Zamowienie {
@@ -13,10 +16,11 @@ public class Zamowienie {
     private String ulica;
     private String kodPocztowy;
     private Date data;
+    private Map<Produkt, Integer> produkty;
 
-    // Konstruktor niezgodny z konstruktorem w diagramie
+    
     public Zamowienie(Klient klient, String kraj, String miejscowosc,
-                      String ulica, String kodPocztowy, Date data){
+                      String ulica, String kodPocztowy, Date data, Koszyk koszyk){
         this.idZamowienia = UUID.randomUUID();
         this.klient = klient;
         this.kraj = kraj;
@@ -24,6 +28,8 @@ public class Zamowienie {
         this.ulica = ulica;
         this.kodPocztowy = kodPocztowy;
         this.data = data;
+        //Konstruktor kopiuje mape przekazana w konstruktorze
+        this.produkty = koszyk.getProdukty();
     }
 
     // GETTERY

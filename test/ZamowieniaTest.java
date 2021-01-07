@@ -1,3 +1,4 @@
+import me.jSkiba.Koszyk;
 import me.sRewilak.Zamowienie;
 import me.sRewilak.Zamowienia;
 import me.jSkiba.Klient;
@@ -11,9 +12,10 @@ import static org.junit.Assert.*;
 public class ZamowieniaTest {
     @Test
     public void dodajZamowienieTest() {
+        Koszyk koszyk = new Koszyk();
         Klient klient = new Klient("Imie", "Nazwisko");
         Zamowienie zamowienie = new Zamowienie(klient, "Kraj",
-                "Miejscowosc", "Ulica", "Kod", new Date());
+                "Miejscowosc", "Ulica", "Kod", new Date(), koszyk);
 
         Zamowienia zamowienia = Zamowienia.getInstance();
         zamowienia.dodajZamowienie(zamowienie);
@@ -22,9 +24,10 @@ public class ZamowieniaTest {
 
     @Test
     public void usunZamowienieTest(){
+        Koszyk koszyk = new Koszyk();
         Klient klient = new Klient("Imie", "Nazwisko");
         Zamowienie zamowienie = new Zamowienie(klient, "Kraj",
-                "Miejscowosc", "Ulica", "Kod", new Date());
+                "Miejscowosc", "Ulica", "Kod", new Date(), koszyk);
 
         Zamowienia zamowienia = Zamowienia.getInstance();
         zamowienia.dodajZamowienie(zamowienie);
