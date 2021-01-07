@@ -3,9 +3,10 @@ package me.sRewilak;
 import me.jSkiba.Klient;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Zamowienie {
-    private String idZamowienia;
+    private UUID idZamowienia;
     private Klient klient;
     private String kraj;
     private String miejscowosc;
@@ -14,9 +15,9 @@ public class Zamowienie {
     private Date data;
 
     // Konstruktor niezgodny z konstruktorem w diagramie
-    Zamowienie(String idZamowienia, Klient klient, String kraj, String miejscowosc,
-              String ulica, String kodPocztowy, Date data){
-        this.idZamowienia = idZamowienia;
+    public Zamowienie(Klient klient, String kraj, String miejscowosc,
+                      String ulica, String kodPocztowy, Date data){
+        this.idZamowienia = UUID.randomUUID();
         this.klient = klient;
         this.kraj = kraj;
         this.miejscowosc = miejscowosc;
@@ -26,7 +27,7 @@ public class Zamowienie {
     }
 
     // GETTERY
-    public String getIdZamowienia() {
+    public UUID getIdZamowienia() {
         return idZamowienia;
     }
 

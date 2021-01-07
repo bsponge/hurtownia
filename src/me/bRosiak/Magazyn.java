@@ -25,9 +25,15 @@ public class Magazyn {
 	}
 
 	/*
+  <<<<<<< bRosiakTest
 	 * Jezeli mamy juz gotowa liste produktow, to mozemy od razu juz dodadac do magazynu za pomoca tego konstruktora.
 	 * !WAZNE!
 	 * Konstruktor kopiuje liste produktdow a nie zapisuje jej orginalow.
+   =======
+	 * Jezeli mamy juz gotowa liste produktow, to mozemy od razu ja dodac do magazynu za pomoca tego konstruktora.
+	 * WAZNE *
+	 * Konstruktor kopiuje liste produktow a nie zapisuje jej oryginal.
+  >>>>>>> main
 	 */
 
 //	private Magazyn(Map<Produkt, Integer> produkty){
