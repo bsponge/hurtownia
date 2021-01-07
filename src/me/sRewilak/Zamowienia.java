@@ -36,7 +36,20 @@ public class Zamowienia {
      }
 
      public void usunZamowienie(UUID idZamowienia){
-         
+          // Metoda szuka elementu o podanym iD zamowienia
+          // index - zmienna przechowuje index zamowienia o podanym id
+          int index = -1;
+          for(int i = 0;i<listaZamowien.size();i++){
+               if(listaZamowien.get(i).getIdZamowienia()==idZamowienia){
+                    index = i;
+               }
+          }
+          if(index!=-1)
+               listaZamowien.remove(index);
+          else{
+               System.out.println("Brak zamowienia o takim id w bazie zamowien.");
+               return;
+          }
      }
 
      public LinkedList<Zamowienie> getListaZamowien(){return INSTANCE.listaZamowien;}
