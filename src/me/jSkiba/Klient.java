@@ -66,8 +66,6 @@ public class Klient extends Osoba {
             String kodPocztowy = scanner.nextLine();
 
             // tworzenie obiektu klasy Zamowienie i dodawanie go do Zamowienia
-            Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date());
-
             Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date(), koszyk);
 
             Zamowienia zamowienia = Zamowienia.getInstance();
