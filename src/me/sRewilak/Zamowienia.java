@@ -38,4 +38,6 @@ public class Zamowienia {
          
      }
 
+     public LinkedList<Zamowienie> getListaZamowien(){return INSTANCE.listaZamowien;}
+
 }
