@@ -18,7 +18,7 @@ public class Zamowienie {
     private Date data;
     private Map<Produkt, Integer> produkty;
 
-    
+
     public Zamowienie(Klient klient, String kraj, String miejscowosc,
                       String ulica, String kodPocztowy, Date data, Koszyk koszyk){
         this.idZamowienia = UUID.randomUUID();

@@ -2,7 +2,6 @@ import me.jSkiba.Koszyk;
 import me.sRewilak.Zamowienie;
 import me.sRewilak.Zamowienia;
 import me.jSkiba.Klient;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Date;
@@ -33,6 +32,12 @@ public class ZamowieniaTest {
         zamowienia.dodajZamowienie(zamowienie);
         zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
         assertFalse(zamowienia.getListaZamowien().contains(zamowienie));
+    }
+
+    @Test
+    public void getInstanceTest(){
+        Zamowienia zamowienia = Zamowienia.getInstance();
+        assertNotNull(zamowienia);
     }
 
 }

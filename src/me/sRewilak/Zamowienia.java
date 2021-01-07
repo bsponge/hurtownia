@@ -13,9 +13,7 @@ public class Zamowienia {
 
 
      //Zwraca instancje singletona
-     public static Zamowienia getInstance() {
-          return INSTANCE;
-     }
+     public static Zamowienia getInstance() { return INSTANCE; }
 
 
      //Singleton - konstruktor prywatny
