@@ -28,7 +28,11 @@ public class Zamowienie {
         this.ulica = ulica;
         this.kodPocztowy = kodPocztowy;
         this.data = data;
-        //Konstruktor kopiuje mape przekazana w konstruktorze
+        /*
+        Konstruktor kopiuje mape przekazana w konstruktorze
+        Zamowienie kopiuje wszystkie produkty dodane przez klienta do koszyka
+        */
+
         this.produkty = koszyk.getProdukty();
     }
 
