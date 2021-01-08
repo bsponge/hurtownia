@@ -58,4 +58,18 @@ public class Koszyk {
     public void usunProdukt(Produkt produkt) {
         produkty.remove(produkt);
     }
+
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof Koszyk)) {
+            return false;
+        }
+        Koszyk koszyk = (Koszyk) object;
+        return produkty.equals(koszyk.produkty);
+    }
 }
