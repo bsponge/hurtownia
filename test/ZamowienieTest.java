@@ -23,12 +23,9 @@ public class ZamowienieTest {
     }
 
     @Test
-    public void TworzenieZamowieniaTest(){
-        // POTRZEBNA METODA DODAJ PRODUKT W KLASIE MAGAZYN
-        klient.dodajProdukt(produkt,2);
-        klient.zlozZamowienie();
+    public void TworzenieZamowieniaTest() {
+        //POTRZEBNA METODA DODAJ PRODUKT W KLASIE MAGAZYN
     }
-
     @Test
     public void getIDZamowieniaTest(){
         assertNotNull(zamowienie.getIdZamowienia());
