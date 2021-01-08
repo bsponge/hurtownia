@@ -2,9 +2,12 @@ import me.jSkiba.Koszyk;
 import me.sRewilak.Zamowienie;
 import me.sRewilak.Zamowienia;
 import me.jSkiba.Klient;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -15,6 +18,9 @@ public class ZamowieniaTest {
     public Klient klient;
     public Koszyk koszyk;
     public Zamowienia zamowienia;
+    private final PrintStream wyjscie = System.out;
+    private final ByteArrayOutputStream wyjscieZapis = new ByteArrayOutputStream();
+
 
     @Before
     public void init(){
@@ -23,6 +29,7 @@ public class ZamowieniaTest {
         zamowienie = new Zamowienie(klient, "Kraj",
                 "Miejscowosc", "Ulica", "Kod", new Date(), koszyk);
         zamowienia = Zamowienia.getInstance();
+
     }
 
 
@@ -56,6 +63,18 @@ public class ZamowieniaTest {
     public void getInstanceTest(){
         //zamowienia.getInstance() jest wyzej, w @Before
         assertNotNull(zamowienia);
+    }
+
+    @Test
+    public void wyswietlZamowieniaTest(){
+        zamowienia.wyswietlZamowienia("id");
+        assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01" ,wyjscieZapis.toString());
+    }
+
+    @After
+    // Przywrocenie standardowego wyjscia po zakonczeniu testow
+    public void zakonczenie() {
+        System.setOut(wyjscie);
     }
 
 }
