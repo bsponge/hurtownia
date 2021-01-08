@@ -26,6 +26,10 @@ public class Zamowienia {
      }
 
      public void wyswietlZamowienia(String idPracownika){
+          for(int i = 0; i<this.listaZamowien.size(); i++){
+              System.out.print("Zamowienie "+(i+1)+". Klient: "+this.listaZamowien.get(i).getKlient().getImie()
+              +", "+this.listaZamowien.get(i).getKlient().getNazwisko()+". Data: " + "2020.01.01");
+          }
 
      }
 

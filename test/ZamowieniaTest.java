@@ -27,8 +27,9 @@ public class ZamowieniaTest {
         koszyk = new Koszyk();
         klient = new Klient("Imie", "Nazwisko");
         zamowienie = new Zamowienie(klient, "Kraj",
-                "Miejscowosc", "Ulica", "Kod", new Date(), koszyk);
+                "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk);
         zamowienia = Zamowienia.getInstance();
+        System.setOut(new PrintStream(wyjscieZapis));
 
     }
 
@@ -67,6 +68,7 @@ public class ZamowieniaTest {
 
     @Test
     public void wyswietlZamowieniaTest(){
+        zamowienia.dodajZamowienie(zamowienie);
         zamowienia.wyswietlZamowienia("id");
         assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01" ,wyjscieZapis.toString());
     }
