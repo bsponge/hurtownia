@@ -51,6 +51,10 @@ public class ZamowieniaTest {
         zamowienia.dodajZamowienie(zamowienie2);
         lista.add(zamowienie2);
         assertEquals(lista,zamowienia.getListaZamowien());
+
+        // Lista zamowien czyszczona na potrzeby dalszych testow
+        zamowienia.usunZamowienie(zamowienie2.getIdZamowienia());
+        zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
     }
 
     @Test
