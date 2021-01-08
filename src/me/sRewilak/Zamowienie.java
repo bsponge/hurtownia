@@ -41,7 +41,9 @@ public class Zamowienie {
         return idZamowienia;
     }
 
-    public Klient getKlient(){ return klient; }
+    public Klient getKlient(){
+        return klient;
+    }
 
     public String getKraj() {
         return kraj;
