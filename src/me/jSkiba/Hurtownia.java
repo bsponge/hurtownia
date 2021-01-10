@@ -35,7 +35,7 @@ public class Hurtownia {
      * Pobiera dane z wejscia tak dlugo az bedzie to integer
      * @return Zwraca podany integer z wejscia lub -1 jezeli dane z wejscia nie moga byc przekonwertowane na integera
      */
-    public int getInput() {
+    public static int getInput() {
         String str = null;
         try {
             while (str == null) {
