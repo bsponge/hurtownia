@@ -7,7 +7,7 @@ public class Magazyn {
 	// Singleton instance
 	private static final Magazyn INSTANCE = new Magazyn();
 	
-	private Map<Produkt, Integer> produkty;
+	private Map<Produkt, Double> produkty;
 
 
 
@@ -49,18 +49,98 @@ public class Magazyn {
 	 */
 	
 	public void dodajProdukt(String idPracownika, Produkt produkt) {
-		
+		dodajProdukt(idPracownika, produkt, 1);
+//		if(!checkId(idPracownika)) {
+//			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+//			return;
+//		}
+//		if(produkty.containsKey(produkt)) produkty.put(produkt, produkty.get(produkt)+1);
+//		else produkty.put(produkt, 1.);
+	}
+	
+	public void dodajProdukt(String idPracownika, Produkt produkt, double ilosc) {
+		if(!checkId(idPracownika)) {
+			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+			return;
+		}
+		if(produkty.containsKey(produkt)) produkty.put(produkt, produkty.get(produkt)+ilosc);
+		else produkty.put(produkt, ilosc);
 	}
 
 	public void usunProdukt(String idPracownika, Produkt produkt) {
+		if(!checkId(idPracownika)) {
+			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+			return;
+		}
+		if(!produkty.containsKey(produkt))
+			throw new NullPointerException("Wskazanego produktu nie ma na liscie");
+	}
+	
+	public void usunProdukt(String idPracownika, Produkt produkt, double ilosc) {
+		if(!checkId(idPracownika)) {
+			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+			return;
+		}
 		
+		if(!produkty.containsKey(produkt))
+			throw new NullPointerException("Wskazanego produktu nie ma na liscie");
+		if(ilosc >= produkty.get(produkt)) {
+			usunProdukt(idPracownika, produkt);
+			return;
+		}
+		
+		produkty.put(produkt, produkty.get(produkt)-ilosc);
 	}
 	
 	public void modyfikujProdukt(String idPracownika, Produkt produkt) {
-	
+		if(!checkId(idPracownika)) {
+			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+			return;
+		}
+		
+		if(!produkty.containsKey(produkt))
+			throw new NullPointerException("Wskazanego produktu nie ma na liscie");
+		
+		int option;
+		double ilosc = produkty.get(produkt);
+		usunProdukt(produkt);
+		
+		do {
+			System.out.println(produkt.getNazwa()+"\t\t\t"+produkt.getCenaJednostkowa()+"/"+produkt.getJednostka().toString());
+			System.out.println("Producent "+produkt.getProducent());
+			System.out.println("Ilosc: "+ilosc);
+			System.out.println("====================");
+			System.out.println("1. Zmien nazwe");
+			System.out.println("2. Zmien cene jednostkowa");
+			System.out.println("3. Zmien jednostke");
+			System.out.println("4. Zmien producenta");
+			System.out.println("5. Zmien ilosc");
+			System.out.println("6. Zakoncz edycje");
+			option = me.jSkiba.Hurtownia.getInput();
+			switch(option) {
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				case 6:
+					produkty.put(produkt, ilosc);
+					return;
+			}
+		}while(true);
+		
 	}
 	
-	public int getIlosc(Produkt produkt) {
+	private boolean checkId(String id) {
+		return true;
+	}
+	
+	public double getIlosc(Produkt produkt) {
 		if(!this.produkty.containsKey(produkt)) return -1;
 		return this.produkty.get(produkt);
 	}
@@ -83,13 +163,12 @@ public class Magazyn {
 //	}
 	
 	@SuppressWarnings("unused")
-	private void setIlosc(Produkt produkt, int ilosc) {
+	private void setIlosc(Produkt produkt, double ilosc) {
 		
 	}
 	
-	@SuppressWarnings("unused")
 	private void usunProdukt(Produkt produkt) {
-		
+		produkty.remove(produkt);
 	}
 	
 }
