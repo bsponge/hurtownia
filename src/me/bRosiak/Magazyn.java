@@ -109,7 +109,7 @@ public class Magazyn implements Serializable {
 		int option;
 		double ilosc = produkty.get(produkt);
 		usunProdukt(produkt);
-		Scanner s = new Scanner(System.in);
+		Scanner s = Hurtownia.scanner;
 		
 		do {
 			System.out.println(produkt.getNazwa()+"\t\t\t"+produkt.getCenaJednostkowa()+"/"+produkt.getJednostka().toString());
