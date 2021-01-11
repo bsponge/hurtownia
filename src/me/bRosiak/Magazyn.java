@@ -2,9 +2,12 @@ package me.bRosiak;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
+import me.jSkiba.Hurtownia;
 
 public class Magazyn implements Serializable {
+
 	// Singleton instance
 	private static final Magazyn INSTANCE = new Magazyn();
 	
@@ -60,7 +63,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void dodajProdukt(String idPracownika, Produkt produkt, double ilosc) {
-		if(!checkId(idPracownika)) {
+		if(!Hurtownia.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -69,16 +72,17 @@ public class Magazyn implements Serializable {
 	}
 
 	public void usunProdukt(String idPracownika, Produkt produkt) {
-		if(!checkId(idPracownika)) {
+		if(!Hurtownia.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
 		if(!produkty.containsKey(produkt))
 			throw new NullPointerException("Wskazanego produktu nie ma na liscie");
+		produkty.remove(produkt);
 	}
 	
 	public void usunProdukt(String idPracownika, Produkt produkt, double ilosc) {
-		if(!checkId(idPracownika)) {
+		if(!Hurtownia.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -94,7 +98,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void modyfikujProdukt(String idPracownika, Produkt produkt) {
-		if(!checkId(idPracownika)) {
+		if(!Hurtownia.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -105,6 +109,7 @@ public class Magazyn implements Serializable {
 		int option;
 		double ilosc = produkty.get(produkt);
 		usunProdukt(produkt);
+		Scanner s = new Scanner(System.in);
 		
 		do {
 			System.out.println(produkt.getNazwa()+"\t\t\t"+produkt.getCenaJednostkowa()+"/"+produkt.getJednostka().toString());
@@ -113,33 +118,39 @@ public class Magazyn implements Serializable {
 			System.out.println("====================");
 			System.out.println("1. Zmien nazwe");
 			System.out.println("2. Zmien cene jednostkowa");
-			System.out.println("3. Zmien jednostke");
-			System.out.println("4. Zmien producenta");
-			System.out.println("5. Zmien ilosc");
-			System.out.println("6. Zakoncz edycje");
+			System.out.println("3. Zmien ilosc");
+			System.out.println("4. Zakoncz edycje");
 			option = me.jSkiba.Hurtownia.getInput();
 			switch(option) {
 				case 1:
+					produkt.setNazwa(s.nextLine());
 					break;
 				case 2:
+					try {
+						produkt.setCenaJednostkowa(s.nextDouble());
+					}catch(NumberFormatException e) {
+						
+					}
 					break;
 				case 3:
+					try {
+						ilosc = s.nextDouble();
+					}catch(NumberFormatException e) {
+						
+					}
 					break;
 				case 4:
-					break;
-				case 5:
-					break;
-				case 6:
 					produkty.put(produkt, ilosc);
+					s.close();
 					return;
 			}
 		}while(true);
 		
 	}
 	
-	private boolean checkId(String id) {
-		return true;
-	}
+//	private boolean checkId(String id) {
+//		return true;
+//	}
 	
 	public double getIlosc(Produkt produkt) {
 		if(!this.produkty.containsKey(produkt)) return -1;

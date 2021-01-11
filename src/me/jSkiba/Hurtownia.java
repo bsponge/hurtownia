@@ -2,6 +2,8 @@ package me.jSkiba;
 
 import java.util.Scanner;
 
+import me.sRewilak.Pracownik;
+
 /**
  * Klasa odpowiedzialna za logike dzialania programu
  */
@@ -47,6 +49,15 @@ public class Hurtownia {
         System.out.println("0. Exit");
     }
 
+    /*
+     * Sprawdza czy podane ID (String) to ID pracownika
+     */
+    
+    public static boolean checkId(String id) {
+    	if(Pracownik.getPracownicy()==null || Pracownik.getPracownicy().isEmpty()) return false;
+    	return Pracownik.getPracownicy().containsKey(id);
+    }
+    
     /**
      * Pobiera dane z wejscia tak dlugo az bedzie to integer
      * @return Zwraca podany integer z wejscia lub -1 jezeli dane z wejscia nie moga byc przekonwertowane na integera
