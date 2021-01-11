@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class FileOperationsTest {
     public File file;
+
     @Before
     public void init() throws IOException {
         file = File.createTempFile("test", "");

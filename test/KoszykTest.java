@@ -28,7 +28,7 @@ public class KoszykTest {
     public void dodajProduktTest() {
         Magazyn magazyn = Magazyn.getInstance();
         // musi zostac dodane przynajmniej 10 produktow
-        magazyn.dodajProdukt("123", produkt);
+        magazyn.dodajProdukt("123", produkt, 10);
         koszyk.dodajProdukt(produkt, 10);
         assertTrue("Koszyk nie posiada produktu", koszyk.getProdukty().containsKey(produkt));
         assertTrue("Koszyk nie posiada odpowiedniej ilosci produktu", koszyk.getProdukty().get(produkt) == 10);
