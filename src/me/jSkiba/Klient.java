@@ -47,7 +47,9 @@ public class Klient extends Osoba {
     public boolean zlozZamowienie() {
         Magazyn magazyn = Magazyn.getInstance();
         if (magazyn != null) {
+            System.out.println("SPRAWDZANIE");
             // sprawdzanie czy w magazynie jest wystarczajaca ilosc produktow
+            System.out.println(koszyk.getProdukty().keySet().size());
             for (Produkt produkt : koszyk.getProdukty().keySet()) {
                 if (koszyk.getProdukty().get(produkt) > magazyn.getIlosc(produkt)) {
                     return false;
