@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -49,7 +50,7 @@ public class ZamowieniaTest {
     public void niepoprawneIdTestWyswietl(){
         // Test sprawdza odmowe dostepu w przypadku blednego ID
         zamowienia.dodajZamowienie(zamowienie);
-        zamowienia.wyswietlZamowienia("wrong");
+        zamowienia.wyswietlZamowienia("blad");
         assertEquals("Nieautoryzowany dostep. Odmowa dostepu"+"\r\n",wyjscieZapis.toString());
         assertNotEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01",wyjscieZapis.toString());
         zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
@@ -76,6 +77,13 @@ public class ZamowieniaTest {
         zamowienia.dodajZamowienie(zamowienie);
         zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
         assertFalse(zamowienia.getListaZamowien().contains(zamowienie));
+    }
+
+    @Test
+    public void usunZamowienieBledneId(){
+        UUID bledneId = new UUID(5,5);
+        zamowienia.usunZamowienie(bledneId);
+        assertEquals("Brak zamowienia o takim id w bazie zamowien."+"\r\n",wyjscieZapis.toString());
     }
 
     @Test
