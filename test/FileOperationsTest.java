@@ -1,3 +1,4 @@
+import me.FileOperations;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class FileOperationsTest {
     public void zapiszObiektTest() {
         String str = "TEST";
         FileOperations.zapiszObiekt(str, file.getName());
-        String input = FileOperations.odcyztajObiekt(String.class, file.getName());
+        String input = FileOperations.odczytajObiekt(String.class, file.getName());
         assertEquals(str, input);
     }
 
@@ -30,7 +31,7 @@ public class FileOperationsTest {
     public void odczytajObiektTest() {
         String str = "TEST";
         FileOperations.zapiszObiekt(str, file.getPath());
-        String input = FileOperations.odcyztajObiekt(String.class, file.getPath());
+        String input = FileOperations.odczytajObiekt(String.class, file.getPath());
         assertEquals(str, input);
     }
 }
