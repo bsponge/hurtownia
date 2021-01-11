@@ -48,8 +48,11 @@ public class ZamowieniaTest {
     @Test
     public void niepoprawneIdTestWyswietl(){
         // Test sprawdza odmowe dostepu w przypadku blednego ID
+        zamowienia.dodajZamowienie(zamowienie);
         zamowienia.wyswietlZamowienia("wrong");
         assertEquals("Nieautoryzowany dostep. Odmowa dostepu"+"\r\n",wyjscieZapis.toString());
+        assertNotEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01",wyjscieZapis.toString());
+        zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
     }
 
     @Test
@@ -85,7 +88,7 @@ public class ZamowieniaTest {
     public void wyswietlZamowieniaTest(){
         zamowienia.dodajZamowienie(zamowienie);
         zamowienia.wyswietlZamowienia("123");
-        assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01" ,wyjscieZapis.toString());
+        assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01"+"\r\n" ,wyjscieZapis.toString());
     }
 
     @After

@@ -34,7 +34,7 @@ public class Zamowienia implements Serializable {
                return;
           }
           for(int i = 0; i<this.listaZamowien.size(); i++){
-              System.out.print("Zamowienie "+(i+1)+". Klient: "+this.listaZamowien.get(i).getKlient().getImie()
+              System.out.println("Zamowienie "+(i+1)+". Klient: "+this.listaZamowien.get(i).getKlient().getImie()
               +", "+this.listaZamowien.get(i).getKlient().getNazwisko()+". Data: " + "2020.01.01");
           }
 
