@@ -4,14 +4,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
 public class FileOperationsTest {
     public File file;
     @Before
-    public void init() {
-        file = new File("test");
+    public void init() throws IOException {
+        file = File.createTempFile("test", "");
     }
 
     @After
