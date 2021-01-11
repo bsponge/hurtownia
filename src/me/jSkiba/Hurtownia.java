@@ -23,7 +23,7 @@ public class Hurtownia {
     /**
      * Wyswietla menu uzytkownika
      */
-    public void printMenu() {
+    public void wyswietlMenu() {
         System.out.println("=====Menu=====");
         System.out.println("1.");
         System.out.println("2.");
