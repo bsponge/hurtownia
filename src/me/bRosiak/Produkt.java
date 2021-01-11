@@ -1,8 +1,9 @@
 package me.bRosiak;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class Produkt {
+public class Produkt implements Serializable {
 
 	private String nazwa;
 	private double cenaJednostkowa;
@@ -10,7 +11,7 @@ public class Produkt {
 	private Jednostka jednostka;
 	
 /*
- *Tesetowy konstruktor domyœly wy³¹czony z u¿ytku
+ *Tesetowy konstruktor domyï¿½ly wyï¿½ï¿½czony z uï¿½ytku
  */
 //	Produkt(){
 //		this.nazwa = null;
@@ -20,8 +21,8 @@ public class Produkt {
 //	}
 	
 /*
- * Konstuktor, który bêdzie u¿ywany najpewniej domyœlnie do tworzenia produktow
- * Zak³ada pobranie ju¿ wczeœniej danych z plików 
+ * Konstuktor, ktï¿½ry bï¿½dzie uï¿½ywany najpewniej domyï¿½lnie do tworzenia produktow
+ * Zakï¿½ada pobranie juï¿½ wczeï¿½niej danych z plikï¿½w 
  */
 	public Produkt(String nazwa, double cenaJednostkowa, String producent, Jednostka jednostka){
 		this.nazwa = nazwa;
@@ -31,17 +32,17 @@ public class Produkt {
 	}
 	
 /*
- * Konstuktor dzia³aj¹cy na pliku.
- * Je¿eli nie chcesz mêczyæ siê z weryfikacj¹ danych z plików, u¿yj tego konstruktora.
- * Póki co jest TYLKO szkielet 
+ * Konstuktor dziaï¿½ajï¿½cy na pliku.
+ * Jeï¿½eli nie chcesz mï¿½czyï¿½ siï¿½ z weryfikacjï¿½ danych z plikï¿½w, uï¿½yj tego konstruktora.
+ * Pï¿½ki co jest TYLKO szkielet 
  */
 	public Produkt(File f){
 		
 	}
 	
 /*
- * Konstruktor kopiuj¹cy, który jest g³ównie wykorzystywany w magazynie przez jeden z konstruktorów
- * do kopiowania ju¿ istniej¹cej listy produktów.
+ * Konstruktor kopiujï¿½cy, ktï¿½ry jest gï¿½ï¿½wnie wykorzystywany w magazynie przez jeden z konstruktorï¿½w
+ * do kopiowania juï¿½ istniejï¿½cej listy produktï¿½w.
  */
 	
 	public Produkt(Produkt p){
