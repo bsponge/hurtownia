@@ -2,11 +2,13 @@ package me.jSkiba;
 
 // klasa bazowa dla klasy Klient i Pracownik
 
+import java.io.Serializable;
+
 /**
  * Reprezentuej osobe
  * @author Jakub Skiba
  */
-public class Osoba {
+public class Osoba implements Serializable {
     private final String imie;
     private final String nazwisko;
 

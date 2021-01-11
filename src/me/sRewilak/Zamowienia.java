@@ -1,10 +1,11 @@
 package me.sRewilak;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-public class Zamowienia {
+public class Zamowienia implements Serializable {
 
      //Singleton
      private static final Zamowienia INSTANCE = new Zamowienia();

@@ -19,7 +19,23 @@ public class Hurtownia {
      * Metoda odpowiedzialna za dzialania programu i odbieranie danych od uzytkownika
      */
     public void run() {
-
+        while (true) {
+            wyswietlMenu();
+            switch (getInput()) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Wybrano niepoprawna opcje");
+            }
+        }
     }
 
     /**

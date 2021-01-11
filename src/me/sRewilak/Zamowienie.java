@@ -4,11 +4,12 @@ import me.bRosiak.Produkt;
 import me.jSkiba.Klient;
 import me.jSkiba.Koszyk;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
-public class Zamowienie {
+public class Zamowienie implements Serializable {
     private UUID idZamowienia;
     private Klient klient;
     private String kraj;

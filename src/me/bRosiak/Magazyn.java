@@ -1,12 +1,13 @@
 package me.bRosiak;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
-
 import me.jSkiba.Hurtownia;
 
-public class Magazyn {
+public class Magazyn implements Serializable {
+
 	// Singleton instance
 	private static final Magazyn INSTANCE = new Magazyn();
 	
