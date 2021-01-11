@@ -1,11 +1,21 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import me.bRosiak.Produkt;
+
 import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
+import me.bRosiak.Produkt;
+import me.sRewilak.Pracownik;
 
 class MagazynTest {
-
+	
+	Pracownik p;
+	
+	@Before
+	public void init() {
+		p = new Pracownik("Blazej", "Rosiak", "12345");
+	}
+	
 	@Test
 	void testGetInstance() {
 		Magazyn store = Magazyn.getInstance();
@@ -55,7 +65,7 @@ class MagazynTest {
 		Produkt p = new Produkt("Testowy produkt", 12.0, "bRosiak", Jednostka.Metr);
 		Assert.assertEquals(-1, store.getIlosc(p),0.001);
 		store.dodajProdukt("12345", p, 12.34);
-		Assert.assertEquals(1, store.getIlosc(p), 0.001);
+		Assert.assertEquals(12.34, store.getIlosc(p), 0.001);
 	}
 	
 	@Test

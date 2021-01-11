@@ -1,12 +1,14 @@
-import me.FileOperations;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import me.FileOperations;
 
 public class FileOperationsTest {
     public File file;
@@ -20,6 +22,11 @@ public class FileOperationsTest {
         file.delete();
     }
 
+    @Test
+    public void checkFilesTest() {
+    	assertTrue(FileOperations.checkFiles());
+    }
+    
     @Test
     public void zapiszObiektTest() {
         String str = "TEST";

@@ -1,18 +1,27 @@
 package me.sRewilak;
-import me.jSkiba.Koszyk;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import me.jSkiba.Osoba;
 
 public class Pracownik extends Osoba{
+	
+	private static Map<String, Pracownik> pracownicy = new ConcurrentHashMap<>();
     private String idPracownika;
-
 
     public Pracownik(String imie, String nazwisko, String id) {
         super(imie, nazwisko);
         this.idPracownika = id;
+        pracownicy.put(idPracownika, this);
     }
 
     // Getter uzywany do operacji na magazynie
     public String getIdPracownika() {
         return idPracownika;
     }
+
+	public static Map<String, Pracownik> getPracownicy() {
+		return pracownicy;
+	}
+    
 }
