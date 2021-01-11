@@ -1,6 +1,7 @@
 import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
+import me.jSkiba.Hurtownia;
 import me.jSkiba.Klient;
 import me.jSkiba.Koszyk;
 import me.sRewilak.Zamowienia;
@@ -8,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
@@ -35,7 +36,7 @@ public class KlientTest {
     // test wymaga poprawnego dzialania metody dodajProdukt klasy Klient
     @Test
     public void zlozPoprawneZamowienieTest() {
-        InputStream sysInBackup = System.in;
+        Scanner scannerBackup = Hurtownia.scanner;
         ByteArrayInputStream in = new ByteArrayInputStream(("Kraj"
                 + System.lineSeparator()
                 + "Miejscowosc"
@@ -44,18 +45,17 @@ public class KlientTest {
                 + System.lineSeparator()
                 + "Kod"
                 + System.lineSeparator()).getBytes());
-        System.setIn(in);
-
+        Hurtownia.scanner = new Scanner(in);
         magazyn.dodajProdukt("ID", produkt, 10);
         klient.dodajProdukt(produkt, 5);
         assertTrue(klient.zlozZamowienie());
 
-        System.setIn(sysInBackup);
+        Hurtownia.scanner = scannerBackup;
     }
 
     @Test
     public void zlozNiepoprawneZamowienieTest() {
-        InputStream sysInBackup = System.in;
+        Scanner scannerBackup = Hurtownia.scanner;
         ByteArrayInputStream in = new ByteArrayInputStream(("Kraj"
                 + System.lineSeparator()
                 + "Miejscowosc"
@@ -64,14 +64,14 @@ public class KlientTest {
                 + System.lineSeparator()
                 + "Kod"
                 + System.lineSeparator()).getBytes());
-        System.setIn(in);
+        Hurtownia.scanner = new Scanner(in);
 
         magazyn.dodajProdukt("ID", produkt, 10);
         klient.dodajProdukt(produkt, 10);
         magazyn.modyfikujProdukt("ID", produkt);
         assertFalse(klient.zlozZamowienie());
 
-        System.setIn(sysInBackup);
+        Hurtownia.scanner = scannerBackup;
     }
 
     @Test
