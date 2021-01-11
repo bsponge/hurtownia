@@ -16,12 +16,14 @@ public class KlientTest {
     public Klient klient;
     public Produkt produkt;
     public Magazyn magazyn;
+    public Zamowienia zamowienia;
 
     @Before
     public void init() {
         klient = new Klient("Imie", "Nazwisko");
         produkt = new Produkt("Nazwa", 10.0, "Producent", Jednostka.Kilogram);
         magazyn = Magazyn.getInstance();
+        zamowienia = Zamowienia.getInstance();
     }
 
     @Test
@@ -29,9 +31,10 @@ public class KlientTest {
         assertEquals(klient.getKoszyk(), new Koszyk());
     }
 
+
+    // test wymaga poprawnego dzialania metody dodajProdukt klasy Klient
     @Test
-    public void zlozZamowienieTest() {
-        Zamowienia zamowienia = Zamowienia.getInstance();
+    public void zlozPoprawneZamowienieTest() {
         InputStream sysInBackup = System.in;
         ByteArrayInputStream in = new ByteArrayInputStream(("Kraj"
                 + System.lineSeparator()
@@ -43,7 +46,30 @@ public class KlientTest {
                 + System.lineSeparator()).getBytes());
         System.setIn(in);
 
-        // do dokonczenia
+        magazyn.dodajProdukt("ID", produkt, 10);
+        klient.dodajProdukt(produkt, 5);
+        assertTrue(klient.zlozZamowienie());
+
+        System.setIn(sysInBackup);
+    }
+
+    @Test
+    public void zlozNiepoprawneZamowienieTest() {
+        InputStream sysInBackup = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream(("Kraj"
+                + System.lineSeparator()
+                + "Miejscowosc"
+                + System.lineSeparator()
+                + "Ulica"
+                + System.lineSeparator()
+                + "Kod"
+                + System.lineSeparator()).getBytes());
+        System.setIn(in);
+
+        magazyn.dodajProdukt("ID", produkt, 10);
+        klient.dodajProdukt(produkt, 10);
+        magazyn.modyfikujProdukt("ID", produkt);
+        assertFalse(klient.zlozZamowienie());
 
         System.setIn(sysInBackup);
     }
@@ -51,7 +77,7 @@ public class KlientTest {
     @Test
     public void dodajProduktTest() {
         // nalezy dodac ile produktow ma zostac dodane do magazynu
-        magazyn.dodajProdukt("123", produkt);
+        magazyn.dodajProdukt("123", produkt, 5);
         klient.dodajProdukt(produkt, 5);
         assertTrue("Koszyk klienta nie zawiera produktu",
                 klient.getKoszyk().getProdukty().containsKey(produkt));
