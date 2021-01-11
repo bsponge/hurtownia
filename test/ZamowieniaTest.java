@@ -1,4 +1,5 @@
 import me.jSkiba.Koszyk;
+import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienie;
 import me.sRewilak.Zamowienia;
 import me.jSkiba.Klient;
@@ -17,6 +18,7 @@ public class ZamowieniaTest {
     public Zamowienie zamowienie;
     public Klient klient;
     public Koszyk koszyk;
+    public Pracownik pracownik;
     public Zamowienia zamowienia;
     private final PrintStream wyjscie = System.out;
     private final ByteArrayOutputStream wyjscieZapis = new ByteArrayOutputStream();
@@ -24,6 +26,7 @@ public class ZamowieniaTest {
 
     @Before
     public void init(){
+        pracownik = new Pracownik("Imie", "Nazwisko","123");
         koszyk = new Koszyk();
         klient = new Klient("Imie", "Nazwisko");
         zamowienie = new Zamowienie(klient, "Kraj",
@@ -39,6 +42,14 @@ public class ZamowieniaTest {
         Zamowienia zamowienia = Zamowienia.getInstance();
         zamowienia.dodajZamowienie(zamowienie);
         assertTrue(zamowienia.getListaZamowien().contains(zamowienie));
+    }
+
+
+    @Test
+    public void niepoprawneIdTestWyswietl(){
+        // Test sprawdza odmowe dostepu w przypadku blednego ID
+        zamowienia.wyswietlZamowienia("wrong");
+        assertEquals("Nieautoryzowany dostep. Odmowa dostepu",wyjscieZapis.toString());
     }
 
     @Test
@@ -73,7 +84,7 @@ public class ZamowieniaTest {
     @Test
     public void wyswietlZamowieniaTest(){
         zamowienia.dodajZamowienie(zamowienie);
-        zamowienia.wyswietlZamowienia("id");
+        zamowienia.wyswietlZamowienia("123");
         assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01" ,wyjscieZapis.toString());
     }
 
