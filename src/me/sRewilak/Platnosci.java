@@ -10,6 +10,15 @@ public class Platnosci implements Serializable {
     //Singleton
     private static final Platnosci INSTANCE = new Platnosci();
 
+    /*
+    <<<<<<<
+     Mapa platnosci. Zamowienie jest reprezentowane przez ID zamowienia.
+     Jesli zamowienie jest oplacone przelewem lub przy odbiorze - klucz = true
+     w przypadku niezaplaconego zamowienia z przelewem - false
+     Iformacje o typie platnosci przechowuje zamowienie
+    <<<<<<
+    */
+
     private Map<UUID, Boolean> statusZamowien;
 
 
