@@ -2,6 +2,7 @@ package me.jSkiba;
 
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
+import me.sRewilak.Platnosci;
 import me.sRewilak.Zamowienia;
 import me.sRewilak.Zamowienie;
 
@@ -72,6 +73,10 @@ public class Klient extends Osoba {
 
             Zamowienia zamowienia = Zamowienia.getInstance();
             zamowienia.dodajZamowienie(zamowienie);
+
+            // do klasy platnosci dodane jest id zamowienia i typ platnosci
+            Platnosci.getInstance().dodajStatus(zamowienie.getIdZamowienia(), platnosc);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
