@@ -1,4 +1,5 @@
 import me.jSkiba.Koszyk;
+import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienie;
 import me.sRewilak.Zamowienia;
 import me.jSkiba.Klient;
@@ -10,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +19,7 @@ public class ZamowieniaTest {
     public Zamowienie zamowienie;
     public Klient klient;
     public Koszyk koszyk;
+    public Pracownik pracownik;
     public Zamowienia zamowienia;
     private final PrintStream wyjscie = System.out;
     private final ByteArrayOutputStream wyjscieZapis = new ByteArrayOutputStream();
@@ -24,10 +27,11 @@ public class ZamowieniaTest {
 
     @Before
     public void init(){
+        pracownik = new Pracownik("Imie", "Nazwisko","123");
         koszyk = new Koszyk();
         klient = new Klient("Imie", "Nazwisko");
         zamowienie = new Zamowienie(klient, "Kraj",
-                "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk);
+                "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk,1);
         zamowienia = Zamowienia.getInstance();
         System.setOut(new PrintStream(wyjscieZapis));
 
@@ -41,13 +45,24 @@ public class ZamowieniaTest {
         assertTrue(zamowienia.getListaZamowien().contains(zamowienie));
     }
 
+
+    @Test
+    public void niepoprawneIdTestWyswietl(){
+        // Test sprawdza odmowe dostepu w przypadku blednego ID
+        zamowienia.dodajZamowienie(zamowienie);
+        zamowienia.wyswietlZamowienia("blad");
+        assertEquals("Nieautoryzowany dostep. Odmowa dostepu"+"\r\n",wyjscieZapis.toString());
+        assertNotEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01",wyjscieZapis.toString());
+        zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
+    }
+
     @Test
     public void getListaZamowienTest(){
         // Test sprawdza liste zamowien po dodaniu 2 zamowien
         zamowienia.dodajZamowienie(zamowienie);
         LinkedList<Zamowienie> lista = new LinkedList<Zamowienie>();
         lista.add(zamowienie);
-        Zamowienie zamowienie2 = new Zamowienie(klient, "K", "M","U","K",new Date(),koszyk);
+        Zamowienie zamowienie2 = new Zamowienie(klient, "K", "M","U","K",new Date(),koszyk,1);
         zamowienia.dodajZamowienie(zamowienie2);
         lista.add(zamowienie2);
         assertEquals(lista,zamowienia.getListaZamowien());
@@ -65,6 +80,13 @@ public class ZamowieniaTest {
     }
 
     @Test
+    public void usunZamowienieBledneId(){
+        UUID bledneId = new UUID(5,5);
+        zamowienia.usunZamowienie(bledneId);
+        assertEquals("Brak zamowienia o takim id w bazie zamowien."+"\r\n",wyjscieZapis.toString());
+    }
+
+    @Test
     public void getInstanceTest(){
         //zamowienia.getInstance() jest wyzej, w @Before
         assertNotNull(zamowienia);
@@ -73,8 +95,8 @@ public class ZamowieniaTest {
     @Test
     public void wyswietlZamowieniaTest(){
         zamowienia.dodajZamowienie(zamowienie);
-        zamowienia.wyswietlZamowienia("id");
-        assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01" ,wyjscieZapis.toString());
+        zamowienia.wyswietlZamowienia("123");
+        assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01"+"\r\n" ,wyjscieZapis.toString());
     }
 
     @After

@@ -12,6 +12,7 @@ public class Pracownik extends Osoba{
     public Pracownik(String imie, String nazwisko, String id) {
         super(imie, nazwisko);
         this.idPracownika = id;
+        // Pracownik zostaje dodany do mapy pracownikow
         pracownicy.put(idPracownika, this);
     }
 

@@ -1,5 +1,7 @@
 package me.sRewilak;
 
+import me.jSkiba.Hurtownia;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,8 +29,12 @@ public class Zamowienia implements Serializable {
      }
 
      public void wyswietlZamowienia(String idPracownika){
+          if(!Hurtownia.checkId(idPracownika)) {
+               System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+               return;
+          }
           for(int i = 0; i<this.listaZamowien.size(); i++){
-              System.out.print("Zamowienie "+(i+1)+". Klient: "+this.listaZamowien.get(i).getKlient().getImie()
+              System.out.println("Zamowienie "+(i+1)+". Klient: "+this.listaZamowien.get(i).getKlient().getImie()
               +", "+this.listaZamowien.get(i).getKlient().getNazwisko()+". Data: " + "2020.01.01");
           }
 

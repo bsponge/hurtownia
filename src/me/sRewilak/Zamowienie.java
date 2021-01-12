@@ -18,10 +18,10 @@ public class Zamowienie implements Serializable {
     private String kodPocztowy;
     private Date data;
     private Map<Produkt, Integer> produkty;
-
+    private int typPlatnosci;
 
     public Zamowienie(Klient klient, String kraj, String miejscowosc,
-                      String ulica, String kodPocztowy, Date data, Koszyk koszyk){
+                      String ulica, String kodPocztowy, Date data, Koszyk koszyk, int typPlatnosci){
         this.idZamowienia = UUID.randomUUID();
         this.klient = klient;
         this.kraj = kraj;
@@ -29,6 +29,7 @@ public class Zamowienie implements Serializable {
         this.ulica = ulica;
         this.kodPocztowy = kodPocztowy;
         this.data = data;
+        this.typPlatnosci=typPlatnosci;
         /*
         Konstruktor kopiuje mape przekazana w konstruktorze
         Zamowienie kopiuje wszystkie produkty dodane przez klienta do koszyka
