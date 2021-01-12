@@ -23,5 +23,9 @@ public class Pracownik extends Osoba{
 	public static Map<String, Pracownik> getPracownicy() {
 		return pracownicy;
 	}
-    
+
+	public static void dodajPracownika(String imie, String nazwisko, String id) {
+        Pracownik pracownik = new Pracownik(imie, nazwisko, id);
+        pracownicy.put(pracownik.getIdPracownika(), pracownik);
+    }
 }

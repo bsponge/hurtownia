@@ -4,6 +4,7 @@ import me.bRosiak.Produkt;
 import me.jSkiba.Hurtownia;
 import me.jSkiba.Klient;
 import me.jSkiba.Koszyk;
+import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienia;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +20,17 @@ public class KlientTest {
     public Magazyn magazyn;
     public Zamowienia zamowienia;
 
+    static {
+
+    }
+
     @Before
     public void init() {
         klient = new Klient("Imie", "Nazwisko");
         produkt = new Produkt("Nazwa", 10.0, "Producent", Jednostka.Kilogram);
         magazyn = Magazyn.getInstance();
         zamowienia = Zamowienia.getInstance();
+        Pracownik.dodajPracownika("Imie", "Nazwisko", "123");
     }
 
     @Test
@@ -44,6 +50,8 @@ public class KlientTest {
                 + "Ulica"
                 + System.lineSeparator()
                 + "Kod"
+                + System.lineSeparator()
+                + "1"
                 + System.lineSeparator()).getBytes());
         Hurtownia.scanner = new Scanner(in);
         magazyn.dodajProdukt("ID", produkt, 10);
@@ -53,6 +61,7 @@ public class KlientTest {
         Hurtownia.scanner = scannerBackup;
     }
 
+    // do poprawienia gdy metoda modyfikujProdukt klasy Magazyn bedzie dzialac poprawnie
     @Test
     public void zlozNiepoprawneZamowienieTest() {
         Scanner scannerBackup = Hurtownia.scanner;
@@ -63,10 +72,12 @@ public class KlientTest {
                 + "Ulica"
                 + System.lineSeparator()
                 + "Kod"
+                + System.lineSeparator()
+                + "1"
                 + System.lineSeparator()).getBytes());
         Hurtownia.scanner = new Scanner(in);
 
-        magazyn.dodajProdukt("ID", produkt, 10);
+        magazyn.dodajProdukt("123", produkt, 10);
         klient.dodajProdukt(produkt, 10);
         magazyn.modyfikujProdukt("ID", produkt);
         assertFalse(klient.zlozZamowienie());
