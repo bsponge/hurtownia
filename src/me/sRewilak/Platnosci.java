@@ -25,17 +25,20 @@ public class Platnosci implements Serializable {
     // Zwraca instancje singletona
     public static Platnosci getInstance() { return INSTANCE; }
 
-    // Singleton - prywatny konstruktor
 
+    // Singleton - prywatny konstruktor
     private Platnosci() { statusZamowien = new ConcurrentHashMap<>(); }
 
 
+    // Metoda uzywana przy skladaniu zamowienia
+    // Dodawane jest ID zamowienia ze statusem platnosci
     public void dodajStatus(UUID IdZamowienia, boolean stan){
         if(!this.statusZamowien.containsKey(IdZamowienia))
             this.statusZamowien.put(IdZamowienia, stan);
         else
             System.out.println("Zamowienie o podanym ID juz dodano do listy platnosci.");
     }
+
     // getter - zwraca status zamowienia, o ile znajduje sie w mapie
     public boolean getStatus(UUID IdZamowienia){
         try{
@@ -48,6 +51,7 @@ public class Platnosci implements Serializable {
         }
     }
 
+    // Status zostaje usuniety po realizacji zamowienia
     public void usunStatus(UUID idZamowienia){
         statusZamowien.remove(idZamowienia);
     }
