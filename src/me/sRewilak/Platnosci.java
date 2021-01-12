@@ -20,4 +20,15 @@ public class Platnosci implements Serializable {
 
     private Platnosci() { statusZamowien = new ConcurrentHashMap<>(); }
 
+
+    // getter - zwraca status zamowienia, o ile znajduje sie w mapie
+    public boolean getStatus(UUID IdZamowienia){
+        try{
+        return this.statusZamowien.get(IdZamowienia);
+        }
+
+        catch (NullPointerException e) {
+            System.out.println("Blad. Brak zamowienia o podanym ID");
+        }
+    }
 }
