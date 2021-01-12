@@ -36,4 +36,10 @@ public class PlatnosciTest {
         platnosci.dodajStatus(zamowienie.getIdZamowienia(), false);
         assertEquals(false, platnosci.getStatus(zamowienie.getIdZamowienia()));
     }
+
+    @Test
+    public void usunStatusTest(){
+        platnosci.usunStatus(zamowienie.getIdZamowienia());
+        assertFalse(platnosci.getListaPlatnosci.contains(zamowienie.getIdZamowienia()));
+    }
 }
