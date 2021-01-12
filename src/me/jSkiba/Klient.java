@@ -66,9 +66,11 @@ public class Klient extends Osoba {
             String ulica = Hurtownia.scanner.nextLine();
             System.out.print("Podaj kod pocztowy: ");
             String kodPocztowy = Hurtownia.scanner.nextLine();
+            System.out.print("Podaj typ platnosci: 1. Platnosc przelewem.  2. Platnosc przy odbiorze.");
+            int platnosc = Hurtownia.scanner.nextInt();
 
             // tworzenie obiektu klasy Zamowienie i dodawanie go do Zamowienia
-            Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date(), koszyk);
+            Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date(), koszyk, platnosc);
 
             Zamowienia zamowienia = Zamowienia.getInstance();
             zamowienia.dodajZamowienie(zamowienie);

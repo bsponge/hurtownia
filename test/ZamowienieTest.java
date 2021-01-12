@@ -19,7 +19,7 @@ public class ZamowienieTest {
         klient = new Klient("Imie", "Nazwisko");
         produkt = new Produkt("Nazwa",9.99,"Producent", Jednostka.Kilogram);
         zamowienie = new Zamowienie(klient,"Kraj","Miejscowosc","Ulica",
-                "11-111",new Date(2020,01,01), klient.getKoszyk());
+                "11-111",new Date(2020,01,01), klient.getKoszyk(),1);
     }
 
     @Test

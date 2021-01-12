@@ -23,7 +23,7 @@ public class PlatnosciTest {
         koszyk = new Koszyk();
         platnosci = platnosci.getInstance();
         zamowienie = new Zamowienie(klient, "Kraj", "Miejscowosc", "Ulica", "Kod",
-                new Date(2020,01,01), koszyk);
+                new Date(2020,01,01), koszyk,1);
     }
 
     @Test

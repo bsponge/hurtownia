@@ -31,7 +31,7 @@ public class ZamowieniaTest {
         koszyk = new Koszyk();
         klient = new Klient("Imie", "Nazwisko");
         zamowienie = new Zamowienie(klient, "Kraj",
-                "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk);
+                "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk,1);
         zamowienia = Zamowienia.getInstance();
         System.setOut(new PrintStream(wyjscieZapis));
 
@@ -62,7 +62,7 @@ public class ZamowieniaTest {
         zamowienia.dodajZamowienie(zamowienie);
         LinkedList<Zamowienie> lista = new LinkedList<Zamowienie>();
         lista.add(zamowienie);
-        Zamowienie zamowienie2 = new Zamowienie(klient, "K", "M","U","K",new Date(),koszyk);
+        Zamowienie zamowienie2 = new Zamowienie(klient, "K", "M","U","K",new Date(),koszyk,1);
         zamowienia.dodajZamowienie(zamowienie2);
         lista.add(zamowienie2);
         assertEquals(lista,zamowienia.getListaZamowien());
