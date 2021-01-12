@@ -25,6 +25,7 @@ public class Pracownik extends Osoba{
 		return pracownicy;
 	}
 
+	// metoda pomocnicza do testow
 	public static void dodajPracownika(String imie, String nazwisko, String id) {
         Pracownik pracownik = new Pracownik(imie, nazwisko, id);
         pracownicy.put(pracownik.getIdPracownika(), pracownik);
