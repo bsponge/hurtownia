@@ -21,6 +21,12 @@ public class Platnosci implements Serializable {
     private Platnosci() { statusZamowien = new ConcurrentHashMap<>(); }
 
 
+    public void dodajStatus(UUID IdZamowienia, boolean stan){
+        if(!this.statusZamowien.containsKey(IdZamowienia))
+            this.statusZamowien.put(IdZamowienia, stan);
+        else
+            System.out.println("Zamowienie o podanym ID juz dodano do listy platnosci.");
+    }
     // getter - zwraca status zamowienia, o ile znajduje sie w mapie
     public boolean getStatus(UUID IdZamowienia){
         try{
@@ -29,6 +35,7 @@ public class Platnosci implements Serializable {
 
         catch (NullPointerException e) {
             System.out.println("Blad. Brak zamowienia o podanym ID");
+            return false;
         }
     }
 }
