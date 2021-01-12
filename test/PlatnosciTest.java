@@ -1,5 +1,7 @@
+import me.sRewilak.Platnosci;
 import org.junit.Before;
 import org.junit.Test;
+import me.sRewilak.Platnosci;
 
 import static org.junit.Assert.*;
 
