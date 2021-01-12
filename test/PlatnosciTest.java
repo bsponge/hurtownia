@@ -33,7 +33,7 @@ public class PlatnosciTest {
 
     @Test
     public void dodajStatusTest(){
-        platnosci.dodajStatus(zamowienie.getIdZamowienia(), false);
+        platnosci.dodajStatus(zamowienie.getIdZamowienia(), 1);
         assertEquals(false, platnosci.getStatus(zamowienie.getIdZamowienia()));
     }
 

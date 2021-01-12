@@ -4,7 +4,6 @@ import me.jSkiba.Hurtownia;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
 public class Zamowienia implements Serializable {

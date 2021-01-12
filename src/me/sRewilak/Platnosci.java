@@ -32,9 +32,20 @@ public class Platnosci implements Serializable {
 
     // Metoda uzywana przy skladaniu zamowienia
     // Dodawane jest ID zamowienia ze statusem platnosci
-    public void dodajStatus(UUID IdZamowienia, boolean stan){
-        if(!this.statusZamowien.containsKey(IdZamowienia))
+    public void dodajStatus(UUID IdZamowienia, int typPlatnosci){
+        boolean stan;
+        if(!this.statusZamowien.containsKey(IdZamowienia)) {
+            // Jezeli platnosc jest przelewem - czyli pole stan == 1,
+            // platnosc jest niezrealizowana najpierw, wiec status platnosci == false
+            if(typPlatnosci == 1)
+                stan = false;
+
+            //Gdy platnosc == 2 -> zamowienie jest "oplacone", bo platnosc przy odbiorze
+            else
+                stan = true;
             this.statusZamowien.put(IdZamowienia, stan);
+        }
+
         else
             System.out.println("Zamowienie o podanym ID juz dodano do listy platnosci.");
     }
