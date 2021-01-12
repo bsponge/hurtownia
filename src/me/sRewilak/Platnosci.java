@@ -38,4 +38,8 @@ public class Platnosci implements Serializable {
             return false;
         }
     }
+
+    public void usunStatus(UUID idZamowienia){
+        statusZamowien.remove(idZamowienia);
+    }
 }
