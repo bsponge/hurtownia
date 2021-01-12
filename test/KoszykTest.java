@@ -2,6 +2,7 @@ import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 import me.jSkiba.Koszyk;
+import me.sRewilak.Pracownik;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,7 @@ public class KoszykTest {
     public void init() {
         koszyk = new Koszyk();
         produkt = new Produkt("Nazwa", 10.0, "Producent", Jednostka.Kilogram);
+        Pracownik.dodajPracownika("Imie", "Nazwisko", "123");
     }
 
     @Test
