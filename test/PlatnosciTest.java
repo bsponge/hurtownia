@@ -40,6 +40,6 @@ public class PlatnosciTest {
     @Test
     public void usunStatusTest(){
         platnosci.usunStatus(zamowienie.getIdZamowienia());
-        assertFalse(platnosci.getListaPlatnosci.contains(zamowienie.getIdZamowienia()));
+        assertFalse(platnosci.getStatus(zamowienie.getIdZamowienia()));
     }
 }
