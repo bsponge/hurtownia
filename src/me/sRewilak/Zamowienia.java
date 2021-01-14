@@ -28,6 +28,7 @@ public class Zamowienia implements Serializable {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
           }
+          usunZamowienie(idZamowienia);
      }
 
      public void wyswietlZamowienia(String idPracownika){
