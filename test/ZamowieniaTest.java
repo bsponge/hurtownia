@@ -64,6 +64,15 @@ public class ZamowieniaTest {
     }
 
     @Test
+    public void usuwanieZamowieniaTest(){
+        Zamowienie zamowienie2 = new Zamowienie(klient,"k","m","u","11-111",
+                            new Date(),koszyk,2);
+        zamowienia.dodajZamowienie(zamowienie2);
+        zamowienia.realizujZamowienie(pracownik.getIdPracownika(),zamowienie2.getIdZamowienia());
+        assertFalse(zamowienia.getListaZamowien().contains(zamowienie2));
+    }
+
+    @Test
     public void getListaZamowienTest(){
         // Test sprawdza liste zamowien po dodaniu 2 zamowien
         zamowienia.dodajZamowienie(zamowienie);
