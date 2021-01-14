@@ -24,7 +24,10 @@ public class Zamowienia implements Serializable {
      }
 
      public void realizujZamowienie(String idPracownika, UUID idZamowienia){
-
+          if(!Hurtownia.checkId(idPracownika)) {
+               System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
+               return;
+          }
      }
 
      public void wyswietlZamowienia(String idPracownika){
