@@ -30,7 +30,43 @@ public class Zamowienia implements Serializable {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
           }
-          usunZamowienie(idZamowienia);
+          if(listaZamowien.containsKey(idZamowienia)) {
+               /*
+               obsluga zamowienia z przelewem (typ platnosci == 1) ->> zamowienie oplacone
+               */
+               if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == true) {
+                    System.out.println("Zamowienie przelewem oplacone. Gdy zamowienie zostanie wyslane, wybierz 1.");
+                    int wybor = Hurtownia.scanner.nextInt();
+                    // po zakonczeniu procedury dla opcji 1 zakoncz funkcje i usun zamowienia z map
+                    if (wybor == 1) {
+                         usunZamowienie(idZamowienia);
+                         Platnosci.getInstance().usunStatus(idZamowienia);
+                         return;
+                    }
+               }
+               /*
+               Przypadek dla zamowienia przelewem, ale gdy nie jest oplacone
+                */
+               else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == true){
+                    System.out.println("Zamowienie nie zostalo oplacone. Nie mozna zrealizowac zamowienia.");
+                    return;
+               }
+
+               /*
+               Przypadek dla zamowienia z platnoscia przy odbiorze => zamowienie rownoznaczne z oplaconym
+                */
+
+               else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==2){
+                    System.out.println("Zamowienie z platnoscia przy odbiorze. Gdy zamowienie zostanie wyslane, wybierz 1.");
+                    int wybor = Hurtownia.scanner.nextInt();
+                    // po zakonczeniu procedury dla opcji 1 zakoncz funkcje i usun zamowienia z map
+                    if (wybor == 1) {
+                         usunZamowienie(idZamowienia);
+                         Platnosci.getInstance().usunStatus(idZamowienia);
+                         return;
+                    }
+               }
+          }
      }
 
      public void wyswietlZamowienia(String idPracownika){
@@ -49,7 +85,7 @@ public class Zamowienia implements Serializable {
      }
 
      public void dodajZamowienie(Zamowienie zamowienie){
-          listaZamowien.put(zamowienie.getIdZamowienia(),zamowienie);
+          listaZamowien.put(zamowienie.getIdZamowienia(), zamowienie);
      }
 
      public void usunZamowienie(UUID idZamowienia){

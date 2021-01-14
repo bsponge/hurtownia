@@ -67,4 +67,6 @@ public class Zamowienie implements Serializable {
         return data;
     }
 
+    public int getTypPlatnosci() { return typPlatnosci; }
+
 }
