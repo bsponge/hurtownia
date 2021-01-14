@@ -11,7 +11,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.Assert.*;
 
@@ -42,7 +44,7 @@ public class ZamowieniaTest {
     public void dodajZamowienieTest() {
         Zamowienia zamowienia = Zamowienia.getInstance();
         zamowienia.dodajZamowienie(zamowienie);
-        assertTrue(zamowienia.getListaZamowien().contains(zamowienie));
+        assertTrue(zamowienia.getListaZamowien().containsKey(zamowienie.getIdZamowienia()));
     }
 
 
@@ -69,19 +71,19 @@ public class ZamowieniaTest {
                             new Date(),koszyk,2);
         zamowienia.dodajZamowienie(zamowienie2);
         zamowienia.realizujZamowienie(pracownik.getIdPracownika(),zamowienie2.getIdZamowienia());
-        assertFalse(zamowienia.getListaZamowien().contains(zamowienie2));
+        assertFalse(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
     }
 
     @Test
     public void getListaZamowienTest(){
         // Test sprawdza liste zamowien po dodaniu 2 zamowien
         zamowienia.dodajZamowienie(zamowienie);
-        LinkedList<Zamowienie> lista = new LinkedList<Zamowienie>();
-        lista.add(zamowienie);
+        Map<UUID,Zamowienie> mapa = new ConcurrentHashMap<>();
+        mapa.put(zamowienie.getIdZamowienia(),zamowienie);
         Zamowienie zamowienie2 = new Zamowienie(klient, "K", "M","U","K",new Date(),koszyk,1);
         zamowienia.dodajZamowienie(zamowienie2);
-        lista.add(zamowienie2);
-        assertEquals(lista,zamowienia.getListaZamowien());
+        mapa.put(zamowienie2.getIdZamowienia(),zamowienie2);
+        assertEquals(mapa,zamowienia.getListaZamowien());
 
         // Lista zamowien czyszczona na potrzeby dalszych testow
         zamowienia.usunZamowienie(zamowienie2.getIdZamowienia());
@@ -92,7 +94,7 @@ public class ZamowieniaTest {
     public void usunZamowienieTest(){
         zamowienia.dodajZamowienie(zamowienie);
         zamowienia.usunZamowienie(zamowienie.getIdZamowienia());
-        assertFalse(zamowienia.getListaZamowien().contains(zamowienie));
+        assertFalse(zamowienia.getListaZamowien().containsKey(zamowienie.getIdZamowienia()));
     }
 
     @Test

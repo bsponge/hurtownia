@@ -4,14 +4,16 @@ import me.jSkiba.Hurtownia;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Zamowienia implements Serializable {
 
      //Singleton
      private static final Zamowienia INSTANCE = new Zamowienia();
 
-     private LinkedList<Zamowienie> listaZamowien;
+     private Map<UUID,Zamowienie> listaZamowien;
 
 
      //Zwraca instancje singletona
@@ -20,7 +22,7 @@ public class Zamowienia implements Serializable {
 
      //Singleton - konstruktor prywatny
      private Zamowienia(){
-          this.listaZamowien = new LinkedList<Zamowienie>();
+          this.listaZamowien = new ConcurrentHashMap<>();
      }
 
      public void realizujZamowienie(String idPracownika, UUID idZamowienia){
@@ -36,34 +38,32 @@ public class Zamowienia implements Serializable {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
           }
-          for(int i = 0; i<this.listaZamowien.size(); i++){
-              System.out.println("Zamowienie "+(i+1)+". Klient: "+this.listaZamowien.get(i).getKlient().getImie()
-              +", "+this.listaZamowien.get(i).getKlient().getNazwisko()+". Data: " + "2020.01.01");
+
+          int i = 0;
+
+          for(Map.Entry<UUID, Zamowienie> entry: listaZamowien.entrySet()){
+              System.out.println("Zamowienie "+(i+1)+". Klient: "+ entry.getValue().getKlient().getImie()
+              +", "+ entry.getValue().getKlient().getNazwisko()+". Data: " + "2020.01.01");
           }
 
      }
 
      public void dodajZamowienie(Zamowienie zamowienie){
-          listaZamowien.add(zamowienie);
+          listaZamowien.put(zamowienie.getIdZamowienia(),zamowienie);
      }
 
      public void usunZamowienie(UUID idZamowienia){
-          // Metoda szuka elementu o podanym iD zamowienia
-          // index - zmienna przechowuje index zamowienia o podanym id
-          int index = -1;
-          for(int i = 0;i<listaZamowien.size();i++){
-               if(listaZamowien.get(i).getIdZamowienia()==idZamowienia){
-                    index = i;
-               }
-          }
-          if(index!=-1)
-               listaZamowien.remove(index);
+          // Metoda usuwa zamowienie o podanym ID z mapy
+          // jesli zamowienie o podanym ID nie ma w mapie - zglasza blad
+
+          if(listaZamowien.containsKey(idZamowienia))
+               listaZamowien.remove(idZamowienia);
           else{
                System.out.println("Brak zamowienia o takim id w bazie zamowien.");
                return;
           }
      }
 
-     public LinkedList<Zamowienie> getListaZamowien(){return INSTANCE.listaZamowien;}
+     public Map<UUID,Zamowienie> getListaZamowien(){return INSTANCE.listaZamowien;}
 
 }
