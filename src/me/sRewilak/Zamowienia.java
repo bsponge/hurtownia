@@ -23,7 +23,7 @@ public class Zamowienia implements Serializable {
           this.listaZamowien = new LinkedList<Zamowienie>();
      }
 
-     public void realizujZamowienie(String idPracownika, String idZamowienia){
+     public void realizujZamowienie(String idPracownika, UUID idZamowienia){
 
      }
 

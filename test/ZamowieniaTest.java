@@ -57,6 +57,13 @@ public class ZamowieniaTest {
     }
 
     @Test
+    public void niepoprawneIdRealizujZamowienie(){
+        // Test sprawdza odmowe dostepu w przypadku blednego ID
+        zamowienia.realizujZamowienie("123",zamowienie.getIdZamowienia());
+        assertEquals("Nieautoryzowany dostep. Odmowa dostepu"+"\r\n",wyjscieZapis.toString());
+    }
+
+    @Test
     public void getListaZamowienTest(){
         // Test sprawdza liste zamowien po dodaniu 2 zamowien
         zamowienia.dodajZamowienie(zamowienie);
