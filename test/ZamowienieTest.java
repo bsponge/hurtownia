@@ -1,6 +1,8 @@
 import me.bRosiak.Jednostka;
+import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 import me.jSkiba.Klient;
+import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienie;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +26,7 @@ public class ZamowienieTest {
 
     @Test
     public void TworzenieZamowieniaTest() {
-        //POTRZEBNA METODA DODAJ PRODUKT W KLASIE MAGAZYN
+        assertNotNull(zamowienie);
     }
     @Test
     public void getIDZamowieniaTest(){

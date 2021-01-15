@@ -26,6 +26,7 @@ public class Zamowienia implements Serializable {
      }
 
      public void realizujZamowienie(String idPracownika, UUID idZamowienia){
+
           if(!Hurtownia.checkId(idPracownika)) {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
@@ -47,7 +48,7 @@ public class Zamowienia implements Serializable {
                /*
                Przypadek dla zamowienia przelewem, ale gdy nie jest oplacone
                 */
-               else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == true){
+               else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == false){
                     System.out.println("Zamowienie nie zostalo oplacone. Nie mozna zrealizowac zamowienia.");
                     return;
                }
@@ -67,6 +68,11 @@ public class Zamowienia implements Serializable {
                     }
                }
           }
+          // Gdy nie ma zamowienia o podanym ID zamowienia
+          else {
+               System.out.println("Nie mozna zrealizowac zamowienia - Brak zamowienia o podanym ID w bazie zamowien.");
+               return;
+          }
      }
 
      public void wyswietlZamowienia(String idPracownika){
@@ -75,11 +81,13 @@ public class Zamowienia implements Serializable {
                return;
           }
 
-          int i = 0;
+          // Mapa zamowien skonwertowana na liste w celu wyswietlenia zamowien
+          LinkedList<Zamowienie> listaKonwert= new LinkedList<Zamowienie>(listaZamowien.values());
 
-          for(Map.Entry<UUID, Zamowienie> entry: listaZamowien.entrySet()){
-              System.out.println("Zamowienie "+(i+1)+". Klient: "+ entry.getValue().getKlient().getImie()
-              +", "+ entry.getValue().getKlient().getNazwisko()+". Data: " + "2020.01.01");
+          for(int i = 0; i<listaKonwert.size(); i++){
+              System.out.println("Zamowienie "+(i+1)+". Klient: "+ listaKonwert.get(i).getKlient().getImie()
+              +", "+ listaKonwert.get(i).getKlient().getNazwisko()+". Data: " + "2020.01.01");
+              i++;
           }
 
      }

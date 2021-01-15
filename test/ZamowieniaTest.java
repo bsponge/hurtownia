@@ -1,4 +1,5 @@
 import me.jSkiba.Koszyk;
+import me.sRewilak.Platnosci;
 import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienie;
 import me.sRewilak.Zamowienia;
@@ -7,10 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +25,7 @@ public class ZamowieniaTest {
     public Koszyk koszyk;
     public Pracownik pracownik;
     public Zamowienia zamowienia;
+    public Platnosci platnosci;
     private final PrintStream wyjscie = System.out;
     private final ByteArrayOutputStream wyjscieZapis = new ByteArrayOutputStream();
 
@@ -35,6 +38,7 @@ public class ZamowieniaTest {
         zamowienie = new Zamowienie(klient, "Kraj",
                 "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk,1);
         zamowienia = Zamowienia.getInstance();
+        platnosci = Platnosci.getInstance();
         System.setOut(new PrintStream(wyjscieZapis));
 
     }
@@ -65,14 +69,6 @@ public class ZamowieniaTest {
         assertEquals("Nieautoryzowany dostep. Odmowa dostepu"+"\r\n",wyjscieZapis.toString());
     }
 
-    @Test
-    public void usuwanieZamowieniaTest(){
-        Zamowienie zamowienie2 = new Zamowienie(klient,"k","m","u","11-111",
-                            new Date(),koszyk,2);
-        zamowienia.dodajZamowienie(zamowienie2);
-        zamowienia.realizujZamowienie(pracownik.getIdPracownika(),zamowienie2.getIdZamowienia());
-        assertFalse(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
-    }
 
     @Test
     public void getListaZamowienTest(){
@@ -114,8 +110,101 @@ public class ZamowieniaTest {
     public void wyswietlZamowieniaTest(){
         zamowienia.dodajZamowienie(zamowienie);
         zamowienia.wyswietlZamowienia("123");
+        Zamowienie zamowienie2 = new Zamowienie(klient,"k","m","u","11-111",
+                new Date(),koszyk,2);
+        zamowienia.dodajZamowienie(zamowienie2);
+        assertTrue(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
         assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01"+"\r\n" ,wyjscieZapis.toString());
     }
+
+    @Test
+    public void realizujZamowieniePrzelewTest(){
+        // Test dla przypadku z platnoscia przy przelewie ale jeszcze nieoplaconym
+        zamowienia.dodajZamowienie(zamowienie);
+        platnosci.dodajStatus(zamowienie.getIdZamowienia(),zamowienie.getTypPlatnosci());
+
+        zamowienia.realizujZamowienie("123",zamowienie.getIdZamowienia());
+
+        // zamowienie ma typ platnosci 1 -> przelew
+        assertEquals("Zamowienie nie zostalo oplacone. Nie mozna zrealizowac zamowienia."+"\r\n",wyjscieZapis.toString());
+
+        // sprawdz czy zamowienie nadal jest w bazie zamowien
+        assertTrue(zamowienia.getListaZamowien().containsKey(zamowienie.getIdZamowienia()));
+
+    }
+
+    /*UWAGA!!!
+    Ponizsze test (dla platnosci przelewem oplaconej i platnosc przy odbiorze) musza byc uruchamiane pojedynczo
+     - niezgodnosc w symulowaniu wejscia z innymi testami
+     */
+
+    /*
+    @Test
+    public void realizujZamowieniePlatnoscOdbior(){
+        // Test dla zamowienia z platnoscia przy odbiorze
+        InputStream backup = System.in;
+
+        // Symulacja wyboru wartosci 1 przez uzytkownika
+        ByteArrayInputStream wejscie = new ByteArrayInputStream("1".getBytes());
+        System.setIn(wejscie);
+        Zamowienie zamowienie2 = new Zamowienie(klient,"k","m","u","11-111",
+                new Date(),koszyk,2);
+        zamowienia.dodajZamowienie(zamowienie2);
+        platnosci.dodajStatus(zamowienie2.getIdZamowienia(),zamowienie2.getTypPlatnosci());
+        zamowienia.realizujZamowienie("123",zamowienie2.getIdZamowienia());
+        assertEquals("Zamowienie z platnoscia przy odbiorze. Gdy zamowienie zostanie wyslane, wybierz 1."+"\r\n",wyjscieZapis.toString());
+
+        // Sprawdzenie czy zamowienie zostalo usuniete z listy zamowien po realizacji
+        assertFalse(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
+    }
+
+
+
+
+    @Test
+    public void realizujZamowieniePlatnoscOplacona(){
+        // Test dla zamowienia z platnoscia przelewem, ale gdy jest oplacona
+        InputStream backup = System.in;
+
+        // Symulacja wyboru wartosci 1 przez uzytkownika
+        ByteArrayInputStream wejscie = new ByteArrayInputStream("1".getBytes());
+        System.setIn(wejscie);
+        // Tworzone zamowienie z typem platnosci 1 -> przelew
+        Zamowienie zamowienie2 = new Zamowienie(klient,"k","m","u","11-111",
+                new Date(),koszyk,1);
+        zamowienia.dodajZamowienie(zamowienie2);
+        platnosci.dodajStatus(zamowienie2.getIdZamowienia(),zamowienie2.getTypPlatnosci());
+
+        // Stan zamowienia ustawiany na true -> tak jak w przypadku oplacenia zamowienia
+        platnosci.setStatus(zamowienie2.getIdZamowienia(),true);
+        zamowienia.realizujZamowienie("123",zamowienie2.getIdZamowienia());
+
+        assertEquals("Zamowienie przelewem oplacone. Gdy zamowienie zostanie wyslane, wybierz 1."+"\r\n",wyjscieZapis.toString());
+
+        // Sprawdzenie czy zamowienie zostalo usuniete z listy zamowien po realizacji
+        assertFalse(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
+    }
+    */
+
+
+    @Test
+    public void realizujZamowienieBledneIdPracownika(){
+        //zamowienie z blednym ID Pracownika
+        Zamowienia.getInstance().realizujZamowienie("blad",zamowienie.getIdZamowienia());
+        assertEquals("Nieautoryzowany dostep. Odmowa dostepu"+"\r\n",wyjscieZapis.toString());
+
+    }
+
+    @Test
+    public void realizujZamowienieBledneIdZamowienia(){
+        Zamowienia.getInstance().realizujZamowienie("123",new UUID(1,1));
+        //zamowienie z blednym ID zamowienia
+
+        assertEquals("Nie mozna zrealizowac zamowienia - Brak zamowienia o podanym ID w bazie zamowien."+"\r\n",wyjscieZapis.toString());
+
+    }
+
+
 
     @After
     // Przywrocenie standardowego wyjscia po zakonczeniu testow

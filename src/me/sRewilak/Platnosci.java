@@ -66,4 +66,6 @@ public class Platnosci implements Serializable {
     public void usunStatus(UUID idZamowienia){
         statusZamowien.remove(idZamowienia);
     }
+
+    public void setStatus(UUID idZamowienia, boolean stan) { this.statusZamowien.put(idZamowienia,stan); }
 }

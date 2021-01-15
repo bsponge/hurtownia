@@ -38,6 +38,15 @@ public class PlatnosciTest {
     }
 
     @Test
+    public void setStatusTest(){
+        // Sprawdza czy stan zamowienia sie zmieni
+        assertFalse(platnosci.getStatus(zamowienie.getIdZamowienia()));
+        platnosci.setStatus(zamowienie.getIdZamowienia(),true);
+        assertTrue(platnosci.getStatus(zamowienie.getIdZamowienia()));
+    }
+
+
+    @Test
     public void usunStatusTest(){
         platnosci.usunStatus(zamowienie.getIdZamowienia());
         assertFalse(platnosci.getStatus(zamowienie.getIdZamowienia()));
