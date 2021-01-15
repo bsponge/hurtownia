@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 public class ZamowieniaTest {
     public Zamowienie zamowienie;
-    public Klient klient;
+    public Klient klient, klient2;
     public Koszyk koszyk;
     public Pracownik pracownik;
     public Zamowienia zamowienia;
@@ -35,8 +35,9 @@ public class ZamowieniaTest {
         pracownik = new Pracownik("Imie", "Nazwisko","123");
         koszyk = new Koszyk();
         klient = new Klient("Imie", "Nazwisko");
+        klient2 = new Klient("Szymon", "Rewilak");
         zamowienie = new Zamowienie(klient, "Kraj",
-                "Miejscowosc", "Ulica", "Kod", new Date(2020,01,01), koszyk,1);
+                "Miejscowosc", "Ulica", "Kod", new Date(), koszyk,1);
         zamowienia = Zamowienia.getInstance();
         platnosci = Platnosci.getInstance();
         System.setOut(new PrintStream(wyjscieZapis));
@@ -109,12 +110,16 @@ public class ZamowieniaTest {
     @Test
     public void wyswietlZamowieniaTest(){
         zamowienia.dodajZamowienie(zamowienie);
-        zamowienia.wyswietlZamowienia("123");
-        Zamowienie zamowienie2 = new Zamowienie(klient,"k","m","u","11-111",
+        //zamowienia.wyswietlZamowienia("123");
+        Zamowienie zamowienie2 = new Zamowienie(klient2,"k","m","u","11-111",
                 new Date(),koszyk,2);
         zamowienia.dodajZamowienie(zamowienie2);
+        zamowienia.wyswietlZamowienia("123");
         assertTrue(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
-        assertEquals("Zamowienie 1. Klient: Imie, Nazwisko. Data: 2020.01.01"+"\r\n" ,wyjscieZapis.toString());
+        assertEquals("Ostatnie 15 zamowien:" + "\r\n"+
+                "Zamowienie 1. Klient: Imie, Nazwisko. Data: "+zamowienie.getData()+"\r\n"+
+                "Zamowienie 2. Klient: Szymon, Rewilak. Data: " +zamowienie2.getData()+"\r\n", wyjscieZapis.toString());
+
     }
 
     @Test

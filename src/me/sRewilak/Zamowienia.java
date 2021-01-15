@@ -84,9 +84,15 @@ public class Zamowienia implements Serializable {
           // Mapa zamowien skonwertowana na liste w celu wyswietlenia zamowien
           LinkedList<Zamowienie> listaKonwert= new LinkedList<Zamowienie>(listaZamowien.values());
 
-          for(int i = 0; i<listaKonwert.size(); i++){
-              System.out.println("Zamowienie "+(i+1)+". Klient: "+ listaKonwert.get(i).getKlient().getImie()
-              +", "+ listaKonwert.get(i).getKlient().getNazwisko()+". Data: " + "2020.01.01");
+          int i = 1;
+
+          // Metoda wyswietla ostatnie 15 zamowien
+          System.out.println("Ostatnie 15 zamowien:");
+          for(Zamowienie zamowienie : listaKonwert){
+               if(i>15)
+                    break;
+              System.out.println("Zamowienie "+(i)+". Klient: "+ zamowienie.getKlient().getImie()
+              +", "+ zamowienie.getKlient().getNazwisko()+". Data: " + zamowienie.getData());
               i++;
           }
 
