@@ -58,15 +58,15 @@ public class Klient extends Osoba {
         try (Scanner scanner = new Scanner(System.in)) {
             // pobieranie danych do zamowienia
             System.out.print("Podaj kraj: ");
-            String kraj = Hurtownia.scanner.nextLine();
+            String kraj = UI.scanner.nextLine();
             System.out.print("Podaj miejscowosc: ");
-            String miejscowosc = Hurtownia.scanner.nextLine();
+            String miejscowosc = UI.scanner.nextLine();
             System.out.print("Podaj ulice: ");
-            String ulica = Hurtownia.scanner.nextLine();
+            String ulica = UI.scanner.nextLine();
             System.out.print("Podaj kod pocztowy: ");
-            String kodPocztowy = Hurtownia.scanner.nextLine();
+            String kodPocztowy = UI.scanner.nextLine();
             System.out.print("Podaj typ platnosci: 1. Platnosc przelewem.  2. Platnosc przy odbiorze.");
-            int platnosc = Hurtownia.scanner.nextInt();
+            int platnosc = UI.scanner.nextInt();
 
             // tworzenie obiektu klasy Zamowienie i dodawanie go do Zamowienia
             Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date(), koszyk, platnosc);

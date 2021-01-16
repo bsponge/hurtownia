@@ -7,18 +7,19 @@ import me.sRewilak.Pracownik;
 /**
  * Klasa odpowiedzialna za logike dzialania programu
  */
-public class Hurtownia {
+public class UI {
     public static Scanner scanner = new Scanner(System.in);
 
     /**
      * Konstruktor klasy Hurtownia
      */
-    public Hurtownia() {}
+    public UI() {}
 
     /**
      * Metoda odpowiedzialna za dzialania programu i odbieranie danych od uzytkownika
      */
     public void run() {
+
         while (true) {
             wyswietlMenu();
             switch (getInput()) {

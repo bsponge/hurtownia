@@ -1,10 +1,10 @@
 package me;
 
-import me.jSkiba.Hurtownia;
+import me.jSkiba.UI;
 
 public class Main {
     public static void main(String... args) {
-        Hurtownia hurtownia = new Hurtownia();
-        hurtownia.run();
+        UI UI = new UI();
+        UI.run();
     }
 }

@@ -1,6 +1,6 @@
 package me.sRewilak;
 
-import me.jSkiba.Hurtownia;
+import me.jSkiba.UI;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -27,7 +27,7 @@ public class Zamowienia implements Serializable {
 
      public void realizujZamowienie(String idPracownika, UUID idZamowienia){
 
-          if(!Hurtownia.checkId(idPracownika)) {
+          if(!UI.checkId(idPracownika)) {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
           }
@@ -37,7 +37,7 @@ public class Zamowienia implements Serializable {
                */
                if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == true) {
                     System.out.println("Zamowienie przelewem oplacone. Gdy zamowienie zostanie wyslane, wybierz 1.");
-                    int wybor = Hurtownia.scanner.nextInt();
+                    int wybor = UI.scanner.nextInt();
                     // po zakonczeniu procedury dla opcji 1 zakoncz funkcje i usun zamowienia z map
                     if (wybor == 1) {
                          usunZamowienie(idZamowienia);
@@ -59,7 +59,7 @@ public class Zamowienia implements Serializable {
 
                else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==2){
                     System.out.println("Zamowienie z platnoscia przy odbiorze. Gdy zamowienie zostanie wyslane, wybierz 1.");
-                    int wybor = Hurtownia.scanner.nextInt();
+                    int wybor = UI.scanner.nextInt();
                     // po zakonczeniu procedury dla opcji 1 zakoncz funkcje i usun zamowienia z map
                     if (wybor == 1) {
                          usunZamowienie(idZamowienia);
@@ -76,7 +76,7 @@ public class Zamowienia implements Serializable {
      }
 
      public void wyswietlZamowienia(String idPracownika){
-          if(!Hurtownia.checkId(idPracownika)) {
+          if(!UI.checkId(idPracownika)) {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
           }

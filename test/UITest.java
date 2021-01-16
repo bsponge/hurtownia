@@ -1,24 +1,23 @@
-import me.jSkiba.Hurtownia;
+import me.jSkiba.UI;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
-public class HurtowniaTest {
-    private Hurtownia hurtownia;
+public class UITest {
+    private UI UI;
 
     @Before
     public void init() {
-        hurtownia = new Hurtownia();
+        UI = new UI();
     }
 
     @Test
     public void getInputTest() {
-        Scanner scannerBackup = Hurtownia.scanner;
+        Scanner scannerBackup = me.jSkiba.UI.scanner;
         ByteArrayInputStream in = new ByteArrayInputStream(("fjdlsk"
                 + System.lineSeparator()
                 + "jfdklsfjsdkl"
@@ -26,12 +25,12 @@ public class HurtowniaTest {
                 + "321"
                 + System.lineSeparator()
                 + "123").getBytes());
-        Hurtownia.scanner = new Scanner(in);
+        UI.scanner = new Scanner(in);
 
-        int input = hurtownia.getInput();
+        int input = UI.getInput();
         assertEquals(321, input);
 
-        Hurtownia.scanner = scannerBackup;
+        UI.scanner = scannerBackup;
     }
 
     @Test

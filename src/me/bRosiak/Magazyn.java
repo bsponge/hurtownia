@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
-import me.jSkiba.Hurtownia;
+import me.jSkiba.UI;
 
 public class Magazyn implements Serializable {
 
@@ -63,7 +63,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void dodajProdukt(String idPracownika, Produkt produkt, double ilosc) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -72,7 +72,7 @@ public class Magazyn implements Serializable {
 	}
 
 	public void usunProdukt(String idPracownika, Produkt produkt) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -82,7 +82,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void usunProdukt(String idPracownika, Produkt produkt, double ilosc) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -98,7 +98,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void modyfikujProdukt(String idPracownika, Produkt produkt) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -109,7 +109,7 @@ public class Magazyn implements Serializable {
 		int option;
 		double ilosc = produkty.get(produkt);
 		usunProdukt(produkt);
-		Scanner s = Hurtownia.scanner;
+		Scanner s = UI.scanner;
 		
 		do {
 			System.out.println(produkt.getNazwa()+"\t\t\t"+produkt.getCenaJednostkowa()+"/"+produkt.getJednostka().toString());
@@ -120,7 +120,7 @@ public class Magazyn implements Serializable {
 			System.out.println("2. Zmien cene jednostkowa");
 			System.out.println("3. Zmien ilosc");
 			System.out.println("4. Zakoncz edycje");
-			option = me.jSkiba.Hurtownia.getInput();
+			option = UI.getInput();
 			switch(option) {
 				case 1:
 					produkt.setNazwa(s.nextLine());
