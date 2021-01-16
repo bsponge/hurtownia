@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
+
+import me.FileOperations;
 import me.jSkiba.UI;
 
 public class Magazyn implements Serializable {
@@ -11,8 +13,15 @@ public class Magazyn implements Serializable {
 	// Singleton instance
 	private static final Magazyn INSTANCE = new Magazyn();
 	
-	private Map<Produkt, Double> produkty;
+	private static Map<Produkt, Double> produkty;
 
+	static {
+		FileOperations.checkFiles();
+		produkty = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.produkty.getAbsolutePath());
+		if (produkty == null) {
+			produkty = new ConcurrentHashMap<>();
+		}
+	}
 
 
 	// Zwraca instancje singletona

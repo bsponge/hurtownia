@@ -30,7 +30,6 @@ public class UI {
      * Metoda odpowiedzialna za dzialania programu i odbieranie danych od uzytkownika
      */
     public void run() {
-    	FileOperations.checkFiles();
         while (true) {
             System.out.println("Kontynuuj jako:\n1. Klient\n2. Pracownik");
             switch (getInput()) {

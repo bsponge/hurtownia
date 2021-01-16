@@ -1,5 +1,6 @@
 package me.sRewilak;
 
+import me.FileOperations;
 import me.jSkiba.UI;
 
 import java.io.Serializable;
@@ -13,7 +14,15 @@ public class Zamowienia implements Serializable {
      //Singleton
      private static final Zamowienia INSTANCE = new Zamowienia();
 
-     private Map<UUID,Zamowienie> listaZamowien;
+     private static Map<UUID,Zamowienie> listaZamowien;
+
+     static {
+          FileOperations.checkFiles();
+          listaZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.zamowienia.getAbsolutePath());
+          if (listaZamowien == null) {
+               listaZamowien = new ConcurrentHashMap<>();
+          }
+     }
 
 
      //Zwraca instancje singletona

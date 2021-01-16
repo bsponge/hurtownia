@@ -63,8 +63,12 @@ public class Klient extends Osoba {
                 }
             }
         }
-        try (Scanner scanner = new Scanner(System.in)) {
+        try {
             // pobieranie danych do zamowienia
+            System.out.println("Podaj imie: ");
+            setImie(UI.scanner.nextLine());
+            System.out.println("Podaj nazwisko: ");
+            setNazwisko(UI.scanner.nextLine());
             System.out.print("Podaj kraj: ");
             String kraj = UI.scanner.nextLine();
             System.out.print("Podaj miejscowosc: ");
@@ -73,7 +77,7 @@ public class Klient extends Osoba {
             String ulica = UI.scanner.nextLine();
             System.out.print("Podaj kod pocztowy: ");
             String kodPocztowy = UI.scanner.nextLine();
-            System.out.print("Podaj typ platnosci: 1. Platnosc przelewem.  2. Platnosc przy odbiorze.");
+            System.out.print("Podaj typ platnosci:\n1. Platnosc przelewem.\n2. Platnosc przy odbiorze.");
             int platnosc = UI.scanner.nextInt();
 
             // tworzenie obiektu klasy Zamowienie i dodawanie go do Zamowienia
