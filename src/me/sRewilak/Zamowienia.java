@@ -125,4 +125,8 @@ public class Zamowienia implements Serializable {
 
      public Map<UUID,Zamowienie> getListaZamowien(){return INSTANCE.listaZamowien;}
 
+     public void zapiszZamowienia() {
+          FileOperations.checkFiles();
+          FileOperations.zapiszObiekt(listaZamowien, FileOperations.zamowienia.getAbsolutePath());
+     }
 }
