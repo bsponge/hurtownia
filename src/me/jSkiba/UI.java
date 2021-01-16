@@ -1,10 +1,10 @@
 package me.jSkiba;
 
+import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 
+import me.FileOperations;
 import me.bRosiak.Magazyn;
-import me.bRosiak.Produkt;
 import me.sRewilak.Pracownik;
 
 /**
@@ -27,6 +27,8 @@ public class UI {
      * Metoda odpowiedzialna za dzialania programu i odbieranie danych od uzytkownika
      */
     public void run() {
+    	new Pracownik("HURTOWNIA", "SYSTEM", 98765);
+    	FileOperations.checkFiles();
         while (true) {
             System.out.println("""
                 Kontynuuj jako:
@@ -69,6 +71,15 @@ public class UI {
         System.out.println("3. Modyfikuj produkty");
         System.out.println("4. Realizuj zamowienie");
         System.out.println("0. Wyjdz");
+    }
+    
+    public int getRandomId() {
+    	Random rand = new Random();
+    	int toReturn;
+    	do {
+    		toReturn = 100000 + rand.nextInt(899999);
+    	}while(Pracownik.getPracownicy().containsKey(toReturn));
+    	return toReturn;
     }
 
     public void wyswietlajMenuKlienta() {
