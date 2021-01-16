@@ -7,6 +7,7 @@ import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 import me.sRewilak.Pracownicy;
 import me.sRewilak.Pracownik;
+import me.sRewilak.Zamowienia;
 
 /**
  * Klasa odpowiedzialna za logike dzialania programu
@@ -14,6 +15,8 @@ import me.sRewilak.Pracownik;
 public class UI {
     public static Scanner scanner = new Scanner(System.in);
     private final Magazyn magazyn;
+    private final Pracownicy pracownicy;
+    private final Zamowienia zamowienia;
     private Klient klient;
     private Pracownik pracownik;
     private Pracownik system;
@@ -24,6 +27,8 @@ public class UI {
     public UI() {
         this.system = new Pracownik("HURTOWNIA", "SYSTEM", String.valueOf(98765));
         this.magazyn = Magazyn.getInstance();
+        this.pracownicy = Pracownicy.getInstance();
+        this.zamowienia = Zamowienia.getInstance();
     }
 
     /**
@@ -35,10 +40,15 @@ public class UI {
             switch (getInput()) {
                 case 1:
                     wyswietlajMenuKlienta();
-                    
+                    magazyn.zapiszProdukty();
+                    zamowienia.zapiszZamowienia();
+                    pracownicy.zapiszPracownikow();
                     return;
                 case 2:
                     wyswietlajMenuPracownika();
+                    magazyn.zapiszProdukty();
+                    zamowienia.zapiszZamowienia();
+                    pracownicy.zapiszPracownikow();
                     return;
                 default:
                     System.out.println("Niepoprawny wybor!");
