@@ -1,10 +1,10 @@
 package me.jSkiba;
 
-import java.util.Random;
 import java.util.Scanner;
 
-import me.FileOperations;
+import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
+import me.bRosiak.Produkt;
 import me.sRewilak.Pracownicy;
 import me.sRewilak.Pracownik;
 
@@ -35,6 +35,7 @@ public class UI {
             switch (getInput()) {
                 case 1:
                     wyswietlajMenuKlienta();
+                    
                     return;
                 case 2:
                     wyswietlajMenuPracownika();
@@ -96,15 +97,56 @@ public class UI {
     }
 
     public void wyswietlajMenuPracownika() {
+        String id;
+        do {
+            System.out.println("Podaj id pracownika lub wpisz -1 aby wyjsc");
+            id = String.valueOf(getInput());
+            if (id.equals("-1")) {
+                return;
+            }
+        } while (!Pracownicy.getInstance().getPracownicy().containsKey(id));
         while (true) {
             System.out.print("\033[H\033[2J");
             wyswietlMenuPracownika();
             switch (getInput()) {
                 case 1:
+                    System.out.println("Podaj nazwe: ");
+                    String nazwa = scanner.nextLine();
+                    System.out.println("Podaj cene: ");
+                    double cena = Double.valueOf(scanner.nextLine());
+                    System.out.println("Podaj producenta: ");
+                    String producent = scanner.nextLine();
+                    System.out.println("Wybierz jednostke: ");
+                    System.out.println("1. Metr\n2. Kilogram\n3. Sztuka\n4. Metr Kwadratowy");
+                    Jednostka jednostka = null;
+                    while (jednostka == null) {
+                        switch (getInput()) {
+                            case 1:
+                                jednostka = Jednostka.Metr;
+                                break;
+                            case 2:
+                                jednostka = Jednostka.Kilogram;
+                                break;
+                            case 3:
+                                jednostka = Jednostka.Sztuka;
+                                break;
+                            case 4:
+                                jednostka = Jednostka.MetrKwadratowy;
+                                break;
+                            default:
+                                System.out.println("Niepoprawny wybor!");
+                        }
+                    }
+                    System.out.println("Podaj ilosc produktu:");
+                    int ilosc = Integer.parseInt(scanner.nextLine());
+                    Produkt produkt = new Produkt(nazwa, cena, producent, jednostka);
+                    magazyn.dodajProdukt(id, produkt, ilosc);
                     break;
                 case 2:
+                    magazyn.wyswietlAsortyment();
                     break;
                 case 3:
+
                     break;
                 case 4:
                     break;
