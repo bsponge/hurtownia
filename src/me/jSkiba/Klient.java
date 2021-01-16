@@ -26,6 +26,10 @@ public class Klient extends Osoba {
         this.koszyk = new Koszyk();
     }
 
+    public Klient() {
+        this.koszyk = new Koszyk();
+    }
+
     /**
      * Zwraca koszyk klienta
      * @return Koszyk klienta
@@ -46,6 +50,10 @@ public class Klient extends Osoba {
      * @return  true jezeli zamowienie zostalo zlozone poprawnie, w przeciwnym razie zwraca false
      */
     public boolean zlozZamowienie() {
+        if (koszyk.getProdukty().isEmpty()) {
+            System.out.println("Twoj koszyk jest pusty.");
+            return false;
+        }
         Magazyn magazyn = Magazyn.getInstance();
         if (magazyn != null) {
             // sprawdzanie czy w magazynie jest wystarczajaca ilosc produktow
@@ -98,5 +106,9 @@ public class Klient extends Osoba {
      */
     public void usunProdukt(Produkt produkt) {
         koszyk.usunProdukt(produkt);
+    }
+
+    public void wyswietlKoszyk() {
+        koszyk.wyswietlProdukty();
     }
 }

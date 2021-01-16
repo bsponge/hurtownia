@@ -9,8 +9,8 @@ import java.io.Serializable;
  * @author Jakub Skiba
  */
 public class Osoba implements Serializable {
-    private final String imie;
-    private final String nazwisko;
+    private String imie;
+    private String nazwisko;
 
     /**
      * Tworzy osobe z podanym imieniem i nazwiskiem
@@ -20,6 +20,10 @@ public class Osoba implements Serializable {
     public Osoba(String imie, String nazwisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
+    }
+
+    public Osoba() {
+
     }
 
     /**
@@ -38,4 +42,11 @@ public class Osoba implements Serializable {
         return nazwisko;
     }
 
+    public void setImie(String imie) {
+        this.imie = imie;
+    }
+
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
+    }
 }

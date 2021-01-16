@@ -1,7 +1,10 @@
 package me.jSkiba;
 
 import java.util.Scanner;
+import java.util.Set;
 
+import me.bRosiak.Magazyn;
+import me.bRosiak.Produkt;
 import me.sRewilak.Pracownik;
 
 /**
@@ -9,19 +12,92 @@ import me.sRewilak.Pracownik;
  */
 public class UI {
     public static Scanner scanner = new Scanner(System.in);
+    private final Magazyn magazyn;
+    private Klient klient;
+    private Pracownik pracownik;
 
     /**
      * Konstruktor klasy Hurtownia
      */
-    public UI() {}
+    public UI() {
+        this.magazyn = Magazyn.getInstance();
+    }
 
     /**
      * Metoda odpowiedzialna za dzialania programu i odbieranie danych od uzytkownika
      */
     public void run() {
-
         while (true) {
-            wyswietlMenu();
+            System.out.println("""
+                Kontynuuj jako:
+                1. Klient
+                2. Pracownik
+                """);
+            switch (getInput()) {
+                case 1:
+                    wyswietlajMenuKlienta();
+                    return;
+                case 2:
+                    wyswietlajMenuPracownika();
+                    return;
+                default:
+                    System.out.println("Niepoprawny wybor!");
+                    System.out.println("");
+            }
+        }
+
+    }
+
+    /**
+     * Wyswietla menu klienta
+     */
+    public void wyswietlMenuKlienta() {
+        System.out.println("=====Menu=====");
+        System.out.println("1. Przegladaj asortyment");
+        System.out.println("2. Przeglądaj koszyk");
+        System.out.println("3. Zloz zamowienie");
+        System.out.println("0. Wyjdz");
+    }
+
+    /**
+     * Wyswietl menu pracownika
+     */
+    public void wyswietlMenuPracownika() {
+        System.out.println("=====Menu=====");
+        System.out.println("1. Dodaj produkty");
+        System.out.println("2. Usun produkty");
+        System.out.println("3. Modyfikuj produkty");
+        System.out.println("4. Realizuj zamowienie");
+        System.out.println("0. Wyjdz");
+    }
+
+    public void wyswietlajMenuKlienta() {
+        klient = new Klient();
+        while (true) {
+            System.out.print("\033[H\033[2J");
+            wyswietlMenuKlienta();
+            switch (getInput()) {
+                case 1:
+                    magazyn.wyswietlAsortyment();
+                    break;
+                case 2:
+                    klient.wyswietlKoszyk();
+                    break;
+                case 3:
+                    klient.zlozZamowienie();
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Niepoprawny wybor!");
+            }
+        }
+    }
+
+    public void wyswietlajMenuPracownika() {
+        while (true) {
+            System.out.print("\033[H\033[2J");
+            wyswietlMenuPracownika();
             switch (getInput()) {
                 case 1:
                     break;
@@ -34,20 +110,9 @@ public class UI {
                 case 0:
                     return;
                 default:
-                    System.out.println("Wybrano niepoprawna opcje");
+                    System.out.println("Niepoprawny wybor!");
             }
         }
-    }
-
-    /**
-     * Wyswietla menu uzytkownika
-     */
-    public void wyswietlMenu() {
-        System.out.println("=====Menu=====");
-        System.out.println("1.");
-        System.out.println("2.");
-        System.out.println("3.");
-        System.out.println("0. Exit");
     }
 
     /*

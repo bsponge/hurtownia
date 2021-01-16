@@ -4,6 +4,7 @@ import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -71,5 +72,22 @@ public class Koszyk {
         }
         Koszyk koszyk = (Koszyk) object;
         return produkty.equals(koszyk.produkty);
+    }
+
+    public void wyswietlProdukty() {
+        if (produkty.isEmpty()) {
+            System.out.println("Twoj koszyk jest pusty.");
+        } else {
+            System.out.println("====Koszyk====");
+            int licznik = 1;
+            for (Produkt produkt : produkty.keySet()) {
+                System.out.println(licznik);
+                System.out.println("\t\tNazwa: " + produkt.getNazwa());
+                System.out.println("\t\tProducent: " + produkt.getProducent());
+                System.out.println("\t\tIlosc: " + produkty.get(produkt));
+                System.out.println("\t\tJednostka: " + produkt.getJednostka());
+                System.out.println();
+            }
+        }
     }
 }
