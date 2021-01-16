@@ -1,19 +1,17 @@
 package me.sRewilak;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Random;
 
 import me.jSkiba.Osoba;
 
 public class Pracownik extends Osoba{
 	
-	private static Map<String, Pracownik> pracownicy = new ConcurrentHashMap<>();
     private String idPracownika;
 
     public Pracownik(String imie, String nazwisko, String id) {
         super(imie, nazwisko);
         this.idPracownika = id;
         // Pracownik zostaje dodany do mapy pracownikow
-        pracownicy.put(idPracownika, this);
+        Pracownicy.getInstance().getPracownicy().put(idPracownika, this);
     }
 
     // Getter uzywany do operacji na magazynie
@@ -21,12 +19,17 @@ public class Pracownik extends Osoba{
         return idPracownika;
     }
 
-	public static Map<String, Pracownik> getPracownicy() {
-		return pracownicy;
-	}
+    public int getLosoweId() {
+        Random rand = new Random();
+        int toReturn;
+        do {
+            toReturn = 100000 + rand.nextInt(899999);
+        }while(Pracownicy.getInstance().getPracownicy().containsKey(toReturn));
+        return toReturn;
+    }
 
 	public static void dodajPracownika(String imie, String nazwisko, String id) {
         Pracownik pracownik = new Pracownik(imie, nazwisko, id);
-        pracownicy.put(pracownik.getIdPracownika(), pracownik);
+        Pracownicy.getInstance().getPracownicy().put(pracownik.getIdPracownika(), pracownik);
     }
 }

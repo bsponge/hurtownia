@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import me.FileOperations;
 import me.bRosiak.Magazyn;
+import me.sRewilak.Pracownicy;
 import me.sRewilak.Pracownik;
 
 /**
@@ -15,11 +16,13 @@ public class UI {
     private final Magazyn magazyn;
     private Klient klient;
     private Pracownik pracownik;
+    private Pracownik system;
 
     /**
      * Konstruktor klasy Hurtownia
      */
     public UI() {
+        this.system = new Pracownik("HURTOWNIA", "SYSTEM", String.valueOf(98765));
         this.magazyn = Magazyn.getInstance();
     }
 
@@ -27,14 +30,9 @@ public class UI {
      * Metoda odpowiedzialna za dzialania programu i odbieranie danych od uzytkownika
      */
     public void run() {
-    	new Pracownik("HURTOWNIA", "SYSTEM", 98765);
     	FileOperations.checkFiles();
         while (true) {
-            System.out.println("""
-                Kontynuuj jako:
-                1. Klient
-                2. Pracownik
-                """);
+            System.out.println("Kontynuuj jako:\n1. Klient\n2. Pracownik");
             switch (getInput()) {
                 case 1:
                     wyswietlajMenuKlienta();
@@ -73,14 +71,7 @@ public class UI {
         System.out.println("0. Wyjdz");
     }
     
-    public int getRandomId() {
-    	Random rand = new Random();
-    	int toReturn;
-    	do {
-    		toReturn = 100000 + rand.nextInt(899999);
-    	}while(Pracownik.getPracownicy().containsKey(toReturn));
-    	return toReturn;
-    }
+
 
     public void wyswietlajMenuKlienta() {
         klient = new Klient();
@@ -131,8 +122,8 @@ public class UI {
      */
     
     public static boolean checkId(String id) {
-    	if(Pracownik.getPracownicy()==null || Pracownik.getPracownicy().isEmpty()) return false;
-    	return Pracownik.getPracownicy().containsKey(id);
+    	if(Pracownicy.getInstance().getPracownicy()==null || Pracownicy.getInstance().getPracownicy().isEmpty()) return false;
+    	return Pracownicy.getInstance().getPracownicy().containsKey(id);
     }
     
     /**
