@@ -191,5 +191,9 @@ public class Magazyn implements Serializable {
 	private void usunProdukt(Produkt produkt) {
 		produkty.remove(produkt);
 	}
-	
+
+	public void zapiszProdukty() {
+		FileOperations.checkFiles();
+		FileOperations.zapiszObiekt(produkty, FileOperations.produkty.getAbsolutePath());
+	}
 }
