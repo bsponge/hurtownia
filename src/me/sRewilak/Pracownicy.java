@@ -29,4 +29,9 @@ public class Pracownicy {
     public Map<String, Pracownik> getPracownicy() {
         return pracownicy;
     }
+
+    public void zapiszPracownikow() {
+        FileOperations.checkFiles();
+        FileOperations.zapiszObiekt(pracownicy, FileOperations.pracownicy.getAbsolutePath());
+    }
 }
