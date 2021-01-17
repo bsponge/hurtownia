@@ -91,6 +91,10 @@ public class Zamowienia implements Serializable {
                return;
           }
 
+          if(this.getListaZamowien().isEmpty()) {
+               System.out.println("Brak dostepnych zamowien.");
+               return;
+          }
           // Mapa zamowien skonwertowana na liste w celu wyswietlenia zamowien
           LinkedList<Zamowienie> listaKonwert= new LinkedList<>(zamowienia.values());
 
