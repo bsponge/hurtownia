@@ -174,7 +174,7 @@ public class Magazyn implements Serializable {
 	public void wyswietlAsortyment() {
 		for(Produkt p : this.produkty.keySet()) {
 			System.out.println("====================");
-			System.out.println(p.getNazwa()+"\t\t\t"+p.getCenaJednostkowa()+"/"+p.getJednostka().toString());
+			System.out.println(p.getNazwa()+"\t\t\t"+p.getCenaJednostkowa()+"/"+p.getJednostka().nazwa);
 			System.out.println("Producent "+p.getProducent());
 		}
 	}
@@ -195,5 +195,14 @@ public class Magazyn implements Serializable {
 	public void zapiszProdukty() {
 		FileOperations.checkFiles();
 		FileOperations.zapiszObiekt(produkty, FileOperations.produkty.getAbsolutePath());
+	}
+
+	public Produkt znajdzProdukt(String nazwa, String producent) {
+		for (Produkt produkt : produkty.keySet()) {
+			if (produkt.getNazwa().equalsIgnoreCase(nazwa) && produkt.getProducent().equalsIgnoreCase(producent)) {
+				return produkt;
+			}
+		}
+		return null;
 	}
 }

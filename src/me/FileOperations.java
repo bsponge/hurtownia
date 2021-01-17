@@ -12,10 +12,10 @@ public class FileOperations {
 	public static File zamowieniaCat = new File(hurtowniaCat, "zamowienia");
 	public static File koszykiCat = new File(hurtowniaCat, "koszyki");
 	public static File produktyCat = new File(hurtowniaCat, "produkty");
-	public static File pracownicy = new File(pracownicyCat,"pracownicy.txt");
-	public static File zamowienia = new File(zamowieniaCat,"zamowienia.txt");
-	public static File koszyki = new File(koszykiCat,"koszyki.txt");
-	public static File produkty = new File(produktyCat,"produkty.txt");
+	public static File pracownicy = new File(pracownicyCat,"pracownicy");
+	public static File zamowienia = new File(zamowieniaCat,"zamowienia");
+	public static File koszyki = new File(koszykiCat,"koszyki");
+	public static File produkty = new File(produktyCat,"produkty");
 	
 	/*
 	 * Metoda checkFiles() sprawdza pliki ustawione jako private

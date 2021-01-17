@@ -10,11 +10,12 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Zamowienia implements Serializable {
+     private static final long serialVersionUID = 4L;
 
      //Singleton
      private static final Zamowienia INSTANCE = new Zamowienia();
 
-     private static Map<UUID,Zamowienie> listaZamowien;
+     private static ConcurrentHashMap<UUID,Zamowienie> listaZamowien;
 
      static {
           FileOperations.checkFiles();

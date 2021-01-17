@@ -3,6 +3,7 @@ package me.jSkiba;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,8 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * Reprezentuje koszyk klienta
  * @author Jakub Skiba
  */
-public class Koszyk {
-    private Map<Produkt, Integer> produkty;
+public class Koszyk implements Serializable {
+    private static final long serialVersionUID = 3L;
+    private ConcurrentHashMap<Produkt, Integer> produkty;
 
     /**
      * Tworzy pusty koszyk

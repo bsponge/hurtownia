@@ -64,8 +64,9 @@ public class UI {
     public void wyswietlMenuKlienta() {
         System.out.println("=====Menu=====");
         System.out.println("1. Przegladaj asortyment");
-        System.out.println("2. Przeglądaj koszyk");
-        System.out.println("3. Zloz zamowienie");
+        System.out.println("2. Dodaj produkt do koszyka");
+        System.out.println("3. Przeglądaj koszyk");
+        System.out.println("4. Zloz zamowienie");
         System.out.println("0. Wyjdz");
     }
 
@@ -93,9 +94,26 @@ public class UI {
                     magazyn.wyswietlAsortyment();
                     break;
                 case 2:
-                    klient.wyswietlKoszyk();
+                    System.out.println("Podaj nazwe produktu: ");
+                    System.out.print("> ");
+                    String nazwa = scanner.nextLine();
+                    System.out.println("Podaj producenta: ");
+                    System.out.print("> ");
+                    String producent = scanner.nextLine();
+                    Produkt produkt = magazyn.znajdzProdukt(nazwa, producent);
+                    if (produkt != null) {
+                        System.out.println("Podaj ilosc produktu: ");
+                        System.out.print("> ");
+                        int ilosc = Integer.parseInt(scanner.nextLine());
+                        klient.dodajProdukt(produkt, ilosc);
+                    } else {
+                        System.out.println("Nie znaleziono takiego produktu");
+                    }
                     break;
                 case 3:
+                    klient.wyswietlKoszyk();
+                    break;
+                case 4:
                     klient.zlozZamowienie();
                     break;
                 case 0:
@@ -110,6 +128,7 @@ public class UI {
         String id;
         do {
             System.out.println("Podaj id pracownika lub wpisz -1 aby wyjsc");
+            System.out.print("> ");
             id = String.valueOf(getInput());
             if (id.equals("-1")) {
                 return;
@@ -121,13 +140,17 @@ public class UI {
             switch (getInput()) {
                 case 1:
                     System.out.println("Podaj nazwe: ");
+                    System.out.print("> ");
                     String nazwa = scanner.nextLine();
                     System.out.println("Podaj cene: ");
+                    System.out.print("> ");
                     double cena = Double.valueOf(scanner.nextLine());
                     System.out.println("Podaj producenta: ");
+                    System.out.print("> ");
                     String producent = scanner.nextLine();
                     System.out.println("Wybierz jednostke: ");
                     System.out.println("1. Metr\n2. Kilogram\n3. Sztuka\n4. Metr Kwadratowy");
+                    System.out.print("> ");
                     Jednostka jednostka = null;
                     while (jednostka == null) {
                         switch (getInput()) {
@@ -148,12 +171,12 @@ public class UI {
                         }
                     }
                     System.out.println("Podaj ilosc produktu:");
+                    System.out.print("> ");
                     int ilosc = Integer.parseInt(scanner.nextLine());
                     Produkt produkt = new Produkt(nazwa, cena, producent, jednostka);
                     magazyn.dodajProdukt(id, produkt, ilosc);
                     break;
                 case 2:
-                    magazyn.wyswietlAsortyment();
                     break;
                 case 3:
 

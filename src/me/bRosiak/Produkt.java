@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 
 public class Produkt implements Serializable {
+	private static final long serialVersionUID = 2L;
 
 	private String nazwa;
 	private double cenaJednostkowa;

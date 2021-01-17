@@ -82,6 +82,7 @@ public class Klient extends Osoba {
 
             // tworzenie obiektu klasy Zamowienie i dodawanie go do Zamowienia
             Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date(), koszyk, platnosc);
+            koszyk = new Koszyk();
 
             Zamowienia zamowienia = Zamowienia.getInstance();
             zamowienia.dodajZamowienie(zamowienie);
