@@ -1,5 +1,7 @@
 package me.sRewilak;
 
+import me.FileOperations;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
@@ -19,7 +21,15 @@ public class Platnosci implements Serializable {
     <<<<<<
     */
 
-    private Map<UUID, Boolean> statusZamowien;
+    private static Map<UUID, Boolean> statusZamowien;
+
+    static {
+        FileOperations.checkFiles();
+        statusZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.platnosci.getAbsolutePath());
+        if (statusZamowien == null) {
+            statusZamowien = new ConcurrentHashMap<>();
+        }
+    }
 
 
     // Zwraca instancje singletona
@@ -68,4 +78,9 @@ public class Platnosci implements Serializable {
     }
 
     public void setStatus(UUID idZamowienia, boolean stan) { this.statusZamowien.put(idZamowienia,stan); }
+
+    public void zapiszPlatnosci() {
+        FileOperations.checkFiles();
+        FileOperations.zapiszObiekt(statusZamowien, FileOperations.platnosci.getAbsolutePath());
+    }
 }

@@ -10,6 +10,8 @@ public class FileOperations {
 	public static File hurtowniaCat = new File("hurtownia");
 	public static File pracownicyCat = new File(hurtowniaCat, "pracownicy");
 	public static File zamowieniaCat = new File(hurtowniaCat, "zamowienia");
+	public static File platnosciCat = new File(hurtowniaCat, "platnosci");
+	public static File platnosci = new File(platnosciCat, "platnosci");
 	public static File koszykiCat = new File(hurtowniaCat, "koszyki");
 	public static File produktyCat = new File(hurtowniaCat, "produkty");
 	public static File pracownicy = new File(pracownicyCat,"pracownicy");
@@ -27,7 +29,10 @@ public class FileOperations {
 		if(!hurtowniaCat.exists()) {
 			hurtowniaCat.mkdir();
 		}
-		
+
+		if (!platnosciCat.exists()) {
+			platnosciCat.mkdir();
+		}
 
 		if(!pracownicyCat.exists()) {
 			pracownicyCat.mkdir();
@@ -40,6 +45,16 @@ public class FileOperations {
 		}
 		if(!produktyCat.exists()) {
 			produktyCat.mkdir();
+		}
+
+		if(!platnosci.exists()) {
+			try {
+				platnosci.createNewFile();
+			} catch (IOException e) {
+				System.out.println("Blad przy tworzeniu pliku pracownicy:");
+				System.out.println(e.getMessage());
+				return false;
+			}
 		}
 		
 		if(!pracownicy.exists()) {

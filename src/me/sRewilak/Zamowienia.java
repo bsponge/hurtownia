@@ -15,13 +15,13 @@ public class Zamowienia implements Serializable {
      //Singleton
      private static final Zamowienia INSTANCE = new Zamowienia();
 
-     private static ConcurrentHashMap<UUID,Zamowienie> listaZamowien;
+     private static ConcurrentHashMap<UUID,Zamowienie> zamowienia;
 
      static {
           FileOperations.checkFiles();
-          listaZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.zamowienia.getAbsolutePath());
-          if (listaZamowien == null) {
-               listaZamowien = new ConcurrentHashMap<>();
+          zamowienia = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.zamowienia.getAbsolutePath());
+          if (zamowienia == null) {
+               zamowienia = new ConcurrentHashMap<>();
           }
      }
 
@@ -32,7 +32,7 @@ public class Zamowienia implements Serializable {
 
      //Singleton - konstruktor prywatny
      private Zamowienia(){
-          this.listaZamowien = new ConcurrentHashMap<>();
+          this.zamowienia = new ConcurrentHashMap<>();
      }
 
      public void realizujZamowienie(String idPracownika, UUID idZamowienia){
@@ -41,11 +41,11 @@ public class Zamowienia implements Serializable {
                System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
                return;
           }
-          if(listaZamowien.containsKey(idZamowienia)) {
+          if(zamowienia.containsKey(idZamowienia)) {
                /*
                obsluga zamowienia z przelewem (typ platnosci == 1) ->> zamowienie oplacone
                */
-               if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == true) {
+               if(zamowienia.get(idZamowienia).getTypPlatnosci()==1 && Platnosci.getInstance().getStatus(idZamowienia) == true) {
                     System.out.println("Zamowienie przelewem oplacone. Gdy zamowienie zostanie wyslane, wybierz 1.");
                     int wybor = UI.scanner.nextInt();
                     // po zakonczeniu procedury dla opcji 1 zakoncz funkcje i usun zamowienia z map
@@ -58,7 +58,7 @@ public class Zamowienia implements Serializable {
                /*
                Przypadek dla zamowienia przelewem, ale gdy nie jest oplacone
                 */
-               else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == false){
+               else if(zamowienia.get(idZamowienia).getTypPlatnosci()==1&&Platnosci.getInstance().getStatus(idZamowienia) == false){
                     System.out.println("Zamowienie nie zostalo oplacone. Nie mozna zrealizowac zamowienia.");
                     return;
                }
@@ -67,7 +67,7 @@ public class Zamowienia implements Serializable {
                Przypadek dla zamowienia z platnoscia przy odbiorze => zamowienie rownoznaczne z oplaconym
                 */
 
-               else if(listaZamowien.get(idZamowienia).getTypPlatnosci()==2){
+               else if(zamowienia.get(idZamowienia).getTypPlatnosci()==2){
                     System.out.println("Zamowienie z platnoscia przy odbiorze. Gdy zamowienie zostanie wyslane, wybierz 1.");
                     int wybor = UI.scanner.nextInt();
                     // po zakonczeniu procedury dla opcji 1 zakoncz funkcje i usun zamowienia z map
@@ -92,7 +92,7 @@ public class Zamowienia implements Serializable {
           }
 
           // Mapa zamowien skonwertowana na liste w celu wyswietlenia zamowien
-          LinkedList<Zamowienie> listaKonwert= new LinkedList<Zamowienie>(listaZamowien.values());
+          LinkedList<Zamowienie> listaKonwert= new LinkedList<>(zamowienia.values());
 
           int i = 1;
 
@@ -102,32 +102,32 @@ public class Zamowienia implements Serializable {
                if(i>15)
                     break;
               System.out.println("Zamowienie "+(i)+". Klient: "+ zamowienie.getKlient().getImie()
-              +", "+ zamowienie.getKlient().getNazwisko()+". Data: " + zamowienie.getData());
+              +", "+ zamowienie.getKlient().getNazwisko()+". Data: " + zamowienie.getData() + ". UUID: " + zamowienie.getIdZamowienia());
               i++;
           }
 
      }
 
      public void dodajZamowienie(Zamowienie zamowienie){
-          listaZamowien.put(zamowienie.getIdZamowienia(), zamowienie);
+          zamowienia.put(zamowienie.getIdZamowienia(), zamowienie);
      }
 
      public void usunZamowienie(UUID idZamowienia){
           // Metoda usuwa zamowienie o podanym ID z mapy
           // jesli zamowienie o podanym ID nie ma w mapie - zglasza blad
 
-          if(listaZamowien.containsKey(idZamowienia))
-               listaZamowien.remove(idZamowienia);
+          if(zamowienia.containsKey(idZamowienia))
+               zamowienia.remove(idZamowienia);
           else{
                System.out.println("Brak zamowienia o takim id w bazie zamowien.");
                return;
           }
      }
 
-     public Map<UUID,Zamowienie> getListaZamowien(){return INSTANCE.listaZamowien;}
+     public Map<UUID,Zamowienie> getListaZamowien(){return INSTANCE.zamowienia;}
 
      public void zapiszZamowienia() {
           FileOperations.checkFiles();
-          FileOperations.zapiszObiekt(listaZamowien, FileOperations.zamowienia.getAbsolutePath());
+          FileOperations.zapiszObiekt(zamowienia, FileOperations.zamowienia.getAbsolutePath());
      }
 }

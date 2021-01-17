@@ -1,10 +1,12 @@
 package me.jSkiba;
 
 import java.util.Scanner;
+import java.util.UUID;
 
 import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
+import me.sRewilak.Platnosci;
 import me.sRewilak.Pracownicy;
 import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienia;
@@ -17,6 +19,7 @@ public class UI {
     private final Magazyn magazyn;
     private final Pracownicy pracownicy;
     private final Zamowienia zamowienia;
+    private final Platnosci platnosci;
     private Klient klient;
     private Pracownik pracownik;
     private Pracownik system;
@@ -29,6 +32,7 @@ public class UI {
         this.magazyn = Magazyn.getInstance();
         this.pracownicy = Pracownicy.getInstance();
         this.zamowienia = Zamowienia.getInstance();
+        this.platnosci = Platnosci.getInstance();
     }
 
     /**
@@ -43,12 +47,14 @@ public class UI {
                     magazyn.zapiszProdukty();
                     zamowienia.zapiszZamowienia();
                     pracownicy.zapiszPracownikow();
+                    platnosci.zapiszPlatnosci();
                     return;
                 case 2:
                     wyswietlajMenuPracownika();
                     magazyn.zapiszProdukty();
                     zamowienia.zapiszZamowienia();
                     pracownicy.zapiszPracownikow();
+                    platnosci.zapiszPlatnosci();
                     return;
                 default:
                     System.out.println("Niepoprawny wybor!");
@@ -78,7 +84,8 @@ public class UI {
         System.out.println("1. Dodaj produkty");
         System.out.println("2. Usun produkty");
         System.out.println("3. Modyfikuj produkty");
-        System.out.println("4. Realizuj zamowienie");
+        System.out.println("4. Przegladaj zamowienia");
+        System.out.println("5. Realizuj zamowienie");
         System.out.println("0. Wyjdz");
     }
     
@@ -128,12 +135,13 @@ public class UI {
         String id;
         do {
             System.out.println("Podaj id pracownika lub wpisz -1 aby wyjsc");
-            System.out.print("> ");
             id = String.valueOf(getInput());
             if (id.equals("-1")) {
                 return;
             }
         } while (!Pracownicy.getInstance().getPracownicy().containsKey(id));
+        String nazwa;
+        String producent;
         while (true) {
             System.out.print("\033[H\033[2J");
             wyswietlMenuPracownika();
@@ -141,16 +149,15 @@ public class UI {
                 case 1:
                     System.out.println("Podaj nazwe: ");
                     System.out.print("> ");
-                    String nazwa = scanner.nextLine();
+                    nazwa = scanner.nextLine();
                     System.out.println("Podaj cene: ");
                     System.out.print("> ");
                     double cena = Double.valueOf(scanner.nextLine());
                     System.out.println("Podaj producenta: ");
                     System.out.print("> ");
-                    String producent = scanner.nextLine();
+                    producent = scanner.nextLine();
                     System.out.println("Wybierz jednostke: ");
                     System.out.println("1. Metr\n2. Kilogram\n3. Sztuka\n4. Metr Kwadratowy");
-                    System.out.print("> ");
                     Jednostka jednostka = null;
                     while (jednostka == null) {
                         switch (getInput()) {
@@ -177,11 +184,46 @@ public class UI {
                     magazyn.dodajProdukt(id, produkt, ilosc);
                     break;
                 case 2:
+                    System.out.println("Podaj nazwe: ");
+                    System.out.print("> ");
+                    nazwa = scanner.nextLine();
+                    System.out.println("Podaj producenta: ");
+                    System.out.print("> ");
+                    producent = scanner.nextLine();
+                    Produkt p = magazyn.znajdzProdukt(nazwa, producent);
+                    if (p != null) {
+                        magazyn.usunProdukt(id, p);
+                    } else {
+                        System.out.println("Nie znaleziono takiego produktu");
+                    }
                     break;
                 case 3:
-
+                    System.out.println("Podaj nazwe: ");
+                    System.out.print("> ");
+                    nazwa = scanner.nextLine();
+                    System.out.println("Podaj producenta: ");
+                    System.out.print("> ");
+                    producent = scanner.nextLine();
+                    Produkt p1 = magazyn.znajdzProdukt(nazwa, producent);
+                    if (p1 != null) {
+                        magazyn.modyfikujProdukt(id, p1);
+                    } else {
+                        System.out.println("Nie znaleziono takiego produktu");
+                    }
                     break;
                 case 4:
+                    zamowienia.wyswietlZamowienia(id);
+                    break;
+                case 5:
+                    System.out.println("Podaj ID zamowienia: ");
+                    System.out.print("> ");
+                    try {
+                        UUID uuid = UUID.fromString(scanner.nextLine());
+                        System.out.println(uuid);
+                        zamowienia.realizujZamowienie(id, uuid);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Niepoprawne id");
+                    }
                     break;
                 case 0:
                     return;
