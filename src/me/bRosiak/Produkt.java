@@ -1,6 +1,5 @@
 package me.bRosiak;
 
-import java.io.File;
 import java.io.Serializable;
 
 public class Produkt implements Serializable {
@@ -36,10 +35,11 @@ public class Produkt implements Serializable {
  * Konstuktor dzia�aj�cy na pliku.
  * Je�eli nie chcesz m�czy� si� z weryfikacj� danych z plik�w, u�yj tego konstruktora.
  * P�ki co jest TYLKO szkielet 
+ * Obecnie wylaczonyn z uzytku
  */
-	public Produkt(File f){
-		
-	}
+//	public Produkt(File f){
+//		
+//	}
 	
 /*
  * Konstruktor kopiuj�cy, kt�ry jest g��wnie wykorzystywany w magazynie przez jeden z konstruktor�w

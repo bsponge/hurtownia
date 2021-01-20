@@ -1,5 +1,6 @@
 package me.jSkiba;
 
+import me.UI;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 import me.sRewilak.Platnosci;
@@ -7,14 +8,16 @@ import me.sRewilak.Zamowienia;
 import me.sRewilak.Zamowienie;
 
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * Reprezentuje klienta sklepu
  * @author Jakub Skiba
  */
 public class Klient extends Osoba {
-    private Koszyk koszyk;
+	
+	private static final long serialVersionUID = -8741438545291665427L;
+	
+	private Koszyk koszyk;
 
     /**
      * Tworzy klienta z podanym imieniem i nazwiskiem

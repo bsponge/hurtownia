@@ -1,11 +1,12 @@
 package me.sRewilak;
-import java.util.Random;
 
 import me.jSkiba.Osoba;
 
 public class Pracownik extends Osoba{
 	
-    private String idPracownika;
+	private static final long serialVersionUID = 8353424054337659757L;
+	
+	private String idPracownika;
 
     public Pracownik(String imie, String nazwisko, String id) {
         super(imie, nazwisko);
@@ -19,14 +20,15 @@ public class Pracownik extends Osoba{
         return idPracownika;
     }
 
-    public int getLosoweId() {
-        Random rand = new Random();
-        int toReturn;
-        do {
-            toReturn = 100000 + rand.nextInt(899999);
-        }while(Pracownicy.getInstance().getPracownicy().containsKey(toReturn));
-        return toReturn;
-    }
+    //Metoda wylaczona z uzytku
+//    public int getLosoweId() {
+//        Random rand = new Random();
+//        int toReturn;
+//        do {
+//            toReturn = 100000 + rand.nextInt(899999);
+//        }while(Pracownicy.getInstance().getPracownicy().containsKey(toReturn));
+//        return toReturn;
+//    }
 
 	public static void dodajPracownika(String imie, String nazwisko, String id) {
         Pracownik pracownik = new Pracownik(imie, nazwisko, id);

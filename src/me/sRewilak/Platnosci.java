@@ -9,7 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Platnosci implements Serializable {
 
-    //Singleton
+	private static final long serialVersionUID = -6452811904269476525L;
+
+	//Singleton
     private static final Platnosci INSTANCE = new Platnosci();
 
     /*
@@ -21,15 +23,15 @@ public class Platnosci implements Serializable {
     <<<<<<
     */
 
-    private static Map<UUID, Boolean> statusZamowien;
+    private Map<UUID, Boolean> statusZamowien;
 
-    static {
-        FileOperations.checkFiles();
-        statusZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.platnosci.getAbsolutePath());
-        if (statusZamowien == null) {
-            statusZamowien = new ConcurrentHashMap<>();
-        }
-    }
+//    static {
+//        FileOperations.checkFiles();
+//        statusZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.platnosci.getAbsolutePath());
+//        if (statusZamowien == null) {
+//            statusZamowien = new ConcurrentHashMap<>();
+//        }
+//    }
 
 
     // Zwraca instancje singletona
@@ -37,7 +39,13 @@ public class Platnosci implements Serializable {
 
 
     // Singleton - prywatny konstruktor
-    private Platnosci() { statusZamowien = new ConcurrentHashMap<>(); }
+    @SuppressWarnings("unchecked")
+	private Platnosci() { 
+    	statusZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.platnosci.getAbsolutePath());
+        if (statusZamowien == null) {
+            statusZamowien = new ConcurrentHashMap<>();
+        }
+    }
 
 
     // Metoda uzywana przy skladaniu zamowienia

@@ -1,4 +1,4 @@
-package me.jSkiba;
+package me;
 
 import java.util.Scanner;
 import java.util.UUID;
@@ -6,9 +6,9 @@ import java.util.UUID;
 import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
+import me.jSkiba.Klient;
 import me.sRewilak.Platnosci;
 import me.sRewilak.Pracownicy;
-import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienia;
 
 /**
@@ -21,14 +21,15 @@ public class UI {
     private final Zamowienia zamowienia;
     private final Platnosci platnosci;
     private Klient klient;
-    private Pracownik pracownik;
-    private Pracownik system;
+//    private Pracownik pracownik;
+//    private Pracownik system;
 
     /**
      * Konstruktor klasy Hurtownia
      */
     public UI() {
-        this.system = new Pracownik("HURTOWNIA", "SYSTEM", String.valueOf(98765));
+    	FileOperations.checkFiles();
+//        this.system = new Pracownik("HURTOWNIA", "SYSTEM", String.valueOf(98765));
         this.magazyn = Magazyn.getInstance();
         this.pracownicy = Pracownicy.getInstance();
         this.zamowienia = Zamowienia.getInstance();

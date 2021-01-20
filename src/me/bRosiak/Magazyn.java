@@ -6,22 +6,24 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 import me.FileOperations;
-import me.jSkiba.UI;
+import me.UI;
 
 public class Magazyn implements Serializable {
+
+	private static final long serialVersionUID = -5448347033961279543L;
 
 	// Singleton instance
 	private static final Magazyn INSTANCE = new Magazyn();
 	
-	private static Map<Produkt, Double> produkty;
+	private Map<Produkt, Double> produkty;
 
-	static {
-		FileOperations.checkFiles();
-		produkty = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.produkty.getAbsolutePath());
-		if (produkty == null) {
-			produkty = new ConcurrentHashMap<>();
-		}
-	}
+//	static {
+//		FileOperations.checkFiles();
+//		produkty = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.produkty.getAbsolutePath());
+//		if (produkty == null) {
+//			produkty = new ConcurrentHashMap<>();
+//		}
+//	}
 
 
 	// Zwraca instancje singletona
@@ -33,8 +35,12 @@ public class Magazyn implements Serializable {
 
 	// Prywatne konstruktory odkad klasa jest singletonem
 
+	@SuppressWarnings("unchecked")
 	private Magazyn(){
-		produkty = new ConcurrentHashMap<>();
+		produkty = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.produkty.getAbsolutePath());
+		if (produkty == null) {
+			produkty = new ConcurrentHashMap<>();
+		}
 	}
 
 	/*

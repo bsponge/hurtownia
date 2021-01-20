@@ -1,6 +1,6 @@
-import me.jSkiba.UI;
-import org.junit.Before;
 import org.junit.Test;
+
+import me.UI;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
@@ -8,16 +8,16 @@ import java.util.Scanner;
 import static org.junit.Assert.*;
 
 public class UITest {
-    private UI UI;
-
-    @Before
-    public void init() {
-        UI = new UI();
-    }
+//    private UI ui;
+//
+//    @Before
+//    public void init() {
+//        ui = new UI();
+//    }
 
     @Test
     public void getInputTest() {
-        Scanner scannerBackup = me.jSkiba.UI.scanner;
+        Scanner scannerBackup = me.UI.scanner;
         ByteArrayInputStream in = new ByteArrayInputStream(("fjdlsk"
                 + System.lineSeparator()
                 + "jfdklsfjsdkl"
