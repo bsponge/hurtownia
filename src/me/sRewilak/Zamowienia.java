@@ -111,7 +111,7 @@ public class Zamowienia implements Serializable {
                if(i>15)
                     break;
               System.out.println("Zamowienie "+(i)+". Klient: "+ zamowienie.getKlient().getImie()
-              +", "+ zamowienie.getKlient().getNazwisko()+". Data: " + zamowienie.getData() + ". UUID: " + zamowienie.getIdZamowienia());
+              +", "+ zamowienie.getKlient().getNazwisko()+". Data: " + zamowienie.getData() + ". ID: " + zamowienie.getIdZamowienia());
               i++;
           }
 

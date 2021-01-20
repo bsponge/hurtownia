@@ -114,8 +114,8 @@ public class ZamowieniaTest {
         zamowienia.wyswietlZamowienia("123");
         assertTrue(zamowienia.getListaZamowien().containsKey(zamowienie2.getIdZamowienia()));
         assertEquals("Ostatnie 15 zamowien:" + "\r\n"+
-                "Zamowienie 1. Klient: Szymon, Rewilak. Data: "+zamowienie.getData()+"\r\n"+
-                "Zamowienie 2. Klient: Imie, Nazwisko. Data: " +zamowienie2.getData()+"\r\n", wyjscieZapis.toString());
+                "Zamowienie 1. Klient: Szymon, Rewilak. Data: "+zamowienie2.getData()+". ID: "+zamowienie2.getIdZamowienia()+"\r\n"+
+                "Zamowienie 2. Klient: Imie, Nazwisko. Data: " +zamowienie.getData()+". ID: "+zamowienie.getIdZamowienia()+"\r\n", wyjscieZapis.toString());
 
     }
 
