@@ -1,7 +1,7 @@
+import me.UI;
 import me.bRosiak.Jednostka;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
-import me.jSkiba.UI;
 import me.jSkiba.Klient;
 import me.jSkiba.Koszyk;
 import me.sRewilak.Pracownik;

@@ -1,7 +1,7 @@
 package me.sRewilak;
 
 import me.FileOperations;
-import me.jSkiba.UI;
+import me.UI;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -15,15 +15,15 @@ public class Zamowienia implements Serializable {
      //Singleton
      private static final Zamowienia INSTANCE = new Zamowienia();
 
-     private static ConcurrentHashMap<UUID,Zamowienie> zamowienia;
+     private ConcurrentHashMap<UUID,Zamowienie> zamowienia;
 
-     static {
-          FileOperations.checkFiles();
-          zamowienia = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.zamowienia.getAbsolutePath());
-          if (zamowienia == null) {
-               zamowienia = new ConcurrentHashMap<>();
-          }
-     }
+//     static {
+//          FileOperations.checkFiles();
+//          zamowienia = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.zamowienia.getAbsolutePath());
+//          if (zamowienia == null) {
+//               zamowienia = new ConcurrentHashMap<>();
+//          }
+//     }
 
 
      //Zwraca instancje singletona
@@ -31,8 +31,13 @@ public class Zamowienia implements Serializable {
 
 
      //Singleton - konstruktor prywatny
-     private Zamowienia(){
-          this.zamowienia = new ConcurrentHashMap<>();
+    @SuppressWarnings("unchecked")
+	private Zamowienia(){
+    	 zamowienia = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.zamowienia.getAbsolutePath());
+         if (zamowienia == null) {
+              zamowienia = new ConcurrentHashMap<>();
+         }
+//          this.zamowienia = new ConcurrentHashMap<>();
      }
 
      public void realizujZamowienie(String idPracownika, UUID idZamowienia){
@@ -91,7 +96,7 @@ public class Zamowienia implements Serializable {
                return;
           }
 
-          if(this.getListaZamowien().isEmpty()) {
+          if(getListaZamowien().isEmpty()) {
                System.out.println("Brak dostepnych zamowien.");
                return;
           }
@@ -128,7 +133,7 @@ public class Zamowienia implements Serializable {
           }
      }
 
-     public Map<UUID,Zamowienie> getListaZamowien(){return INSTANCE.zamowienia;}
+     public Map<UUID,Zamowienie> getListaZamowien(){return this.zamowienia;}
 
      public void zapiszZamowienia() {
           FileOperations.checkFiles();

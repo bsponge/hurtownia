@@ -9,7 +9,9 @@ import java.io.Serializable;
  * @author Jakub Skiba
  */
 public class Osoba implements Serializable {
-    private String imie;
+
+	private static final long serialVersionUID = -2738270539038195943L;
+	private String imie;
     private String nazwisko;
 
     /**

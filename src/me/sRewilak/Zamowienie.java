@@ -10,14 +10,18 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Zamowienie implements Serializable {
-    private UUID idZamowienia;
+
+	private static final long serialVersionUID = 8383813249031676053L;
+	
+	private UUID idZamowienia;
     private Klient klient;
     private String kraj;
     private String miejscowosc;
     private String ulica;
     private String kodPocztowy;
     private Date data;
-    private Map<Produkt, Integer> produkty;
+    @SuppressWarnings("unused")
+	private Map<Produkt, Integer> produkty;
     private int typPlatnosci;
 
     public Zamowienie(Klient klient, String kraj, String miejscowosc,

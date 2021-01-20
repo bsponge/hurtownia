@@ -1,8 +1,6 @@
 import me.bRosiak.Jednostka;
-import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 import me.jSkiba.Klient;
-import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienie;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +14,8 @@ public class ZamowienieTest {
     public Produkt produkt;
     public Zamowienie zamowienie;
 
-    @Before
+    @SuppressWarnings("deprecation")
+	@Before
     public void init(){
         klient = new Klient("Imie", "Nazwisko");
         produkt = new Produkt("Nazwa",9.99,"Producent", Jednostka.Kilogram);
@@ -35,7 +34,8 @@ public class ZamowienieTest {
 
     @Test
     public void getDataTest(){
-        Date data = new Date(2020,01,01);
+        @SuppressWarnings("deprecation")
+		Date data = new Date(2020,01,01);
         assertEquals(data,zamowienie.getData());
     }
 

@@ -4,7 +4,6 @@ import me.sRewilak.Platnosci;
 import me.sRewilak.Zamowienie;
 import org.junit.Before;
 import org.junit.Test;
-import me.sRewilak.Platnosci;
 
 import java.util.Date;
 
@@ -17,11 +16,12 @@ public class PlatnosciTest {
     public Klient klient;
     public Koszyk koszyk;
 
-    @Before
+    @SuppressWarnings("deprecation")
+	@Before
     public void init(){
         klient = new Klient("Imie", "Nazwisko");
         koszyk = new Koszyk();
-        platnosci = platnosci.getInstance();
+        platnosci = Platnosci.getInstance();
         zamowienie = new Zamowienie(klient, "Kraj", "Miejscowosc", "Ulica", "Kod",
                 new Date(2020,01,01), koszyk,1);
     }

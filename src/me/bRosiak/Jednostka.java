@@ -1,7 +1,5 @@
 package me.bRosiak;
 
-import java.io.Serializable;
-
 public enum Jednostka {
 	Metr("metr"), Kilogram("kilogram"), Sztuka("sztuka"), MetrKwadratowy("metr kwadratowy");
 
