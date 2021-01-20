@@ -125,7 +125,6 @@ public class Magazyn implements Serializable {
 		double ilosc = produkty.get(produkt);
 		usunProdukt(produkt);
 		Scanner s = UI.scanner;
-		
 		do {
 			System.out.println(produkt.getNazwa()+"\t\t\t"+produkt.getCenaJednostkowa()+"/"+produkt.getJednostka().toString());
 			System.out.println("Producent "+produkt.getProducent());
@@ -156,7 +155,6 @@ public class Magazyn implements Serializable {
 					break;
 				case 4:
 					produkty.put(produkt, ilosc);
-					s.close();
 					return;
 			}
 		}while(true);

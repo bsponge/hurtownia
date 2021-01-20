@@ -9,6 +9,7 @@ import me.bRosiak.Produkt;
 import me.jSkiba.Klient;
 import me.sRewilak.Platnosci;
 import me.sRewilak.Pracownicy;
+import me.sRewilak.Pracownik;
 import me.sRewilak.Zamowienia;
 
 /**
@@ -29,7 +30,7 @@ public class UI {
      */
     public UI() {
     	FileOperations.checkFiles();
-//        this.system = new Pracownik("HURTOWNIA", "SYSTEM", String.valueOf(98765));
+        new Pracownik("HURTOWNIA", "SYSTEM", String.valueOf(98765));
         this.magazyn = Magazyn.getInstance();
         this.pracownicy = Pracownicy.getInstance();
         this.zamowienia = Zamowienia.getInstance();
@@ -84,9 +85,10 @@ public class UI {
         System.out.println("=====Menu=====");
         System.out.println("1. Dodaj produkty");
         System.out.println("2. Usun produkty");
-        System.out.println("3. Modyfikuj produkty");
-        System.out.println("4. Przegladaj zamowienia");
-        System.out.println("5. Realizuj zamowienie");
+        System.out.println("3. Wyswietl produkty");
+        System.out.println("4. Modyfikuj produkty");
+        System.out.println("5. Przegladaj zamowienia");
+        System.out.println("6. Realizuj zamowienie");
         System.out.println("0. Wyjdz");
     }
     
@@ -148,41 +150,45 @@ public class UI {
             wyswietlMenuPracownika();
             switch (getInput()) {
                 case 1:
-                    System.out.println("Podaj nazwe: ");
-                    System.out.print("> ");
-                    nazwa = scanner.nextLine();
-                    System.out.println("Podaj cene: ");
-                    System.out.print("> ");
-                    double cena = Double.valueOf(scanner.nextLine());
-                    System.out.println("Podaj producenta: ");
-                    System.out.print("> ");
-                    producent = scanner.nextLine();
-                    System.out.println("Wybierz jednostke: ");
-                    System.out.println("1. Metr\n2. Kilogram\n3. Sztuka\n4. Metr Kwadratowy");
-                    Jednostka jednostka = null;
-                    while (jednostka == null) {
-                        switch (getInput()) {
-                            case 1:
-                                jednostka = Jednostka.Metr;
-                                break;
-                            case 2:
-                                jednostka = Jednostka.Kilogram;
-                                break;
-                            case 3:
-                                jednostka = Jednostka.Sztuka;
-                                break;
-                            case 4:
-                                jednostka = Jednostka.MetrKwadratowy;
-                                break;
-                            default:
-                                System.out.println("Niepoprawny wybor!");
+                    try {
+                        System.out.println("Podaj nazwe: ");
+                        System.out.print("> ");
+                        nazwa = scanner.nextLine();
+                        System.out.println("Podaj cene: ");
+                        System.out.print("> ");
+                        double cena = Double.valueOf(scanner.nextLine());
+                        System.out.println("Podaj producenta: ");
+                        System.out.print("> ");
+                        producent = scanner.nextLine();
+                        System.out.println("Wybierz jednostke: ");
+                        System.out.println("1. Metr\n2. Kilogram\n3. Sztuka\n4. Metr Kwadratowy");
+                        Jednostka jednostka = null;
+                        while (jednostka == null) {
+                            switch (getInput()) {
+                                case 1:
+                                    jednostka = Jednostka.Metr;
+                                    break;
+                                case 2:
+                                    jednostka = Jednostka.Kilogram;
+                                    break;
+                                case 3:
+                                    jednostka = Jednostka.Sztuka;
+                                    break;
+                                case 4:
+                                    jednostka = Jednostka.MetrKwadratowy;
+                                    break;
+                                default:
+                                    System.out.println("Niepoprawny wybor!");
+                            }
                         }
+                        System.out.println("Podaj ilosc produktu:");
+                        System.out.print("> ");
+                        int ilosc = Integer.parseInt(scanner.nextLine());
+                        Produkt produkt = new Produkt(nazwa, cena, producent, jednostka);
+                        magazyn.dodajProdukt(id, produkt, ilosc);
+                    } catch (Exception e) {
+                        System.out.println("Wprowadzono niepoprawne dane!");
                     }
-                    System.out.println("Podaj ilosc produktu:");
-                    System.out.print("> ");
-                    int ilosc = Integer.parseInt(scanner.nextLine());
-                    Produkt produkt = new Produkt(nazwa, cena, producent, jednostka);
-                    magazyn.dodajProdukt(id, produkt, ilosc);
                     break;
                 case 2:
                     System.out.println("Podaj nazwe: ");
@@ -199,6 +205,9 @@ public class UI {
                     }
                     break;
                 case 3:
+                    magazyn.wyswietlAsortyment();
+                    break;
+                case 4:
                     System.out.println("Podaj nazwe: ");
                     System.out.print("> ");
                     nazwa = scanner.nextLine();
@@ -212,17 +221,17 @@ public class UI {
                         System.out.println("Nie znaleziono takiego produktu");
                     }
                     break;
-                case 4:
+                case 5:
                     zamowienia.wyswietlZamowienia(id);
                     break;
-                case 5:
+                case 6:
                     System.out.println("Podaj ID zamowienia: ");
                     System.out.print("> ");
                     try {
                         UUID uuid = UUID.fromString(scanner.nextLine());
                         System.out.println(uuid);
                         zamowienia.realizujZamowienie(id, uuid);
-                    } catch (IllegalArgumentException e) {
+                    } catch (Exception e) {
                         System.out.println("Niepoprawne id");
                     }
                     break;
