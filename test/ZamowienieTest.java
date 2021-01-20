@@ -14,7 +14,8 @@ public class ZamowienieTest {
     public Produkt produkt;
     public Zamowienie zamowienie;
 
-    @Before
+    @SuppressWarnings("deprecation")
+	@Before
     public void init(){
         klient = new Klient("Imie", "Nazwisko");
         produkt = new Produkt("Nazwa",9.99,"Producent", Jednostka.Kilogram);
@@ -24,7 +25,7 @@ public class ZamowienieTest {
 
     @Test
     public void TworzenieZamowieniaTest() {
-        //POTRZEBNA METODA DODAJ PRODUKT W KLASIE MAGAZYN
+        assertNotNull(zamowienie);
     }
     @Test
     public void getIDZamowieniaTest(){
@@ -33,7 +34,8 @@ public class ZamowienieTest {
 
     @Test
     public void getDataTest(){
-        Date data = new Date(2020,01,01);
+        @SuppressWarnings("deprecation")
+		Date data = new Date(2020,01,01);
         assertEquals(data,zamowienie.getData());
     }
 

@@ -1,5 +1,7 @@
 package me.sRewilak;
 
+import me.FileOperations;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
@@ -7,26 +9,65 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Platnosci implements Serializable {
 
-    //Singleton
+	private static final long serialVersionUID = -6452811904269476525L;
+
+	//Singleton
     private static final Platnosci INSTANCE = new Platnosci();
 
+    /*
+    <<<<<<<
+     Mapa platnosci. Zamowienie jest reprezentowane przez ID zamowienia.
+     Jesli zamowienie jest oplacone przelewem lub przy odbiorze - klucz = true
+     w przypadku niezaplaconego zamowienia z przelewem - false
+     Iformacje o typie platnosci przechowuje zamowienie
+    <<<<<<
+    */
+
     private Map<UUID, Boolean> statusZamowien;
+
+//    static {
+//        FileOperations.checkFiles();
+//        statusZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.platnosci.getAbsolutePath());
+//        if (statusZamowien == null) {
+//            statusZamowien = new ConcurrentHashMap<>();
+//        }
+//    }
 
 
     // Zwraca instancje singletona
     public static Platnosci getInstance() { return INSTANCE; }
 
+
     // Singleton - prywatny konstruktor
+    @SuppressWarnings("unchecked")
+	private Platnosci() { 
+    	statusZamowien = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.platnosci.getAbsolutePath());
+        if (statusZamowien == null) {
+            statusZamowien = new ConcurrentHashMap<>();
+        }
+    }
 
-    private Platnosci() { statusZamowien = new ConcurrentHashMap<>(); }
 
+    // Metoda uzywana przy skladaniu zamowienia
+    // Dodawane jest ID zamowienia ze statusem platnosci
+    public void dodajStatus(UUID IdZamowienia, int typPlatnosci){
+        boolean stan;
+        if(!this.statusZamowien.containsKey(IdZamowienia)) {
+            // Jezeli platnosc jest przelewem - czyli pole stan == 1,
+            // platnosc jest niezrealizowana najpierw, wiec status platnosci == false
+            if(typPlatnosci == 1)
+                stan = false;
 
-    public void dodajStatus(UUID IdZamowienia, boolean stan){
-        if(!this.statusZamowien.containsKey(IdZamowienia))
+            //Gdy platnosc == 2 -> zamowienie jest "oplacone", bo platnosc przy odbiorze
+            else
+                stan = true;
             this.statusZamowien.put(IdZamowienia, stan);
+        }
+
         else
             System.out.println("Zamowienie o podanym ID juz dodano do listy platnosci.");
     }
+
     // getter - zwraca status zamowienia, o ile znajduje sie w mapie
     public boolean getStatus(UUID IdZamowienia){
         try{
@@ -39,7 +80,15 @@ public class Platnosci implements Serializable {
         }
     }
 
+    // Status zostaje usuniety po realizacji zamowienia
     public void usunStatus(UUID idZamowienia){
         statusZamowien.remove(idZamowienia);
+    }
+
+    public void setStatus(UUID idZamowienia, boolean stan) { this.statusZamowien.put(idZamowienia,stan); }
+
+    public void zapiszPlatnosci() {
+        FileOperations.checkFiles();
+        FileOperations.zapiszObiekt(statusZamowien, FileOperations.platnosci.getAbsolutePath());
     }
 }

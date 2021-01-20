@@ -1,19 +1,23 @@
 package me.jSkiba;
 
+import me.UI;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
+import me.sRewilak.Platnosci;
 import me.sRewilak.Zamowienia;
 import me.sRewilak.Zamowienie;
 
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * Reprezentuje klienta sklepu
  * @author Jakub Skiba
  */
 public class Klient extends Osoba {
-    private Koszyk koszyk;
+	
+	private static final long serialVersionUID = -8741438545291665427L;
+	
+	private Koszyk koszyk;
 
     /**
      * Tworzy klienta z podanym imieniem i nazwiskiem
@@ -22,6 +26,10 @@ public class Klient extends Osoba {
      */
     public Klient(String imie, String nazwisko) {
         super(imie, nazwisko);
+        this.koszyk = new Koszyk();
+    }
+
+    public Klient() {
         this.koszyk = new Koszyk();
     }
 
@@ -45,6 +53,10 @@ public class Klient extends Osoba {
      * @return  true jezeli zamowienie zostalo zlozone poprawnie, w przeciwnym razie zwraca false
      */
     public boolean zlozZamowienie() {
+        if (koszyk.getProdukty().isEmpty()) {
+            System.out.println("Twoj koszyk jest pusty.");
+            return false;
+        }
         Magazyn magazyn = Magazyn.getInstance();
         if (magazyn != null) {
             // sprawdzanie czy w magazynie jest wystarczajaca ilosc produktow
@@ -54,24 +66,33 @@ public class Klient extends Osoba {
                 }
             }
         }
-        try (Scanner scanner = new Scanner(System.in)) {
+        try {
             // pobieranie danych do zamowienia
+            System.out.println("Podaj imie: ");
+            setImie(UI.scanner.nextLine());
+            System.out.println("Podaj nazwisko: ");
+            setNazwisko(UI.scanner.nextLine());
             System.out.print("Podaj kraj: ");
-            String kraj = Hurtownia.scanner.nextLine();
+            String kraj = UI.scanner.nextLine();
             System.out.print("Podaj miejscowosc: ");
-            String miejscowosc = Hurtownia.scanner.nextLine();
+            String miejscowosc = UI.scanner.nextLine();
             System.out.print("Podaj ulice: ");
-            String ulica = Hurtownia.scanner.nextLine();
+            String ulica = UI.scanner.nextLine();
             System.out.print("Podaj kod pocztowy: ");
-            String kodPocztowy = Hurtownia.scanner.nextLine();
-            System.out.print("Podaj typ platnosci: 1. Platnosc przelewem.  2. Platnosc przy odbiorze.");
-            int platnosc = Hurtownia.scanner.nextInt();
+            String kodPocztowy = UI.scanner.nextLine();
+            System.out.print("Podaj typ platnosci:\n1. Platnosc przelewem.\n2. Platnosc przy odbiorze.");
+            int platnosc = UI.scanner.nextInt();
 
             // tworzenie obiektu klasy Zamowienie i dodawanie go do Zamowienia
             Zamowienie zamowienie = new Zamowienie(this, kraj, miejscowosc, ulica, kodPocztowy, new Date(), koszyk, platnosc);
+            koszyk = new Koszyk();
 
             Zamowienia zamowienia = Zamowienia.getInstance();
             zamowienia.dodajZamowienie(zamowienie);
+
+            // do klasy platnosci dodane jest id zamowienia i typ platnosci
+            Platnosci.getInstance().dodajStatus(zamowienie.getIdZamowienia(), platnosc);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,5 +114,9 @@ public class Klient extends Osoba {
      */
     public void usunProdukt(Produkt produkt) {
         koszyk.usunProdukt(produkt);
+    }
+
+    public void wyswietlKoszyk() {
+        koszyk.wyswietlProdukty();
     }
 }

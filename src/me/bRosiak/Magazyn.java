@@ -4,15 +4,26 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
-import me.jSkiba.Hurtownia;
+
+import me.FileOperations;
+import me.UI;
 
 public class Magazyn implements Serializable {
+
+	private static final long serialVersionUID = -5448347033961279543L;
 
 	// Singleton instance
 	private static final Magazyn INSTANCE = new Magazyn();
 	
 	private Map<Produkt, Double> produkty;
 
+//	static {
+//		FileOperations.checkFiles();
+//		produkty = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.produkty.getAbsolutePath());
+//		if (produkty == null) {
+//			produkty = new ConcurrentHashMap<>();
+//		}
+//	}
 
 
 	// Zwraca instancje singletona
@@ -24,8 +35,12 @@ public class Magazyn implements Serializable {
 
 	// Prywatne konstruktory odkad klasa jest singletonem
 
+	@SuppressWarnings("unchecked")
 	private Magazyn(){
-		produkty = new ConcurrentHashMap<>();
+		produkty = FileOperations.odczytajObiekt(ConcurrentHashMap.class, FileOperations.produkty.getAbsolutePath());
+		if (produkty == null) {
+			produkty = new ConcurrentHashMap<>();
+		}
 	}
 
 	/*
@@ -63,7 +78,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void dodajProdukt(String idPracownika, Produkt produkt, double ilosc) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -72,7 +87,7 @@ public class Magazyn implements Serializable {
 	}
 
 	public void usunProdukt(String idPracownika, Produkt produkt) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -82,7 +97,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void usunProdukt(String idPracownika, Produkt produkt, double ilosc) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -98,7 +113,7 @@ public class Magazyn implements Serializable {
 	}
 	
 	public void modyfikujProdukt(String idPracownika, Produkt produkt) {
-		if(!Hurtownia.checkId(idPracownika)) {
+		if(!UI.checkId(idPracownika)) {
 			System.out.println("Nieautoryzowany dostep. Odmowa dostepu");
 			return;
 		}
@@ -109,7 +124,7 @@ public class Magazyn implements Serializable {
 		int option;
 		double ilosc = produkty.get(produkt);
 		usunProdukt(produkt);
-		Scanner s = Hurtownia.scanner;
+		Scanner s = UI.scanner;
 		
 		do {
 			System.out.println(produkt.getNazwa()+"\t\t\t"+produkt.getCenaJednostkowa()+"/"+produkt.getJednostka().toString());
@@ -120,21 +135,21 @@ public class Magazyn implements Serializable {
 			System.out.println("2. Zmien cene jednostkowa");
 			System.out.println("3. Zmien ilosc");
 			System.out.println("4. Zakoncz edycje");
-			option = me.jSkiba.Hurtownia.getInput();
+			option = UI.getInput();
 			switch(option) {
 				case 1:
 					produkt.setNazwa(s.nextLine());
 					break;
 				case 2:
 					try {
-						produkt.setCenaJednostkowa(s.nextDouble());
+						produkt.setCenaJednostkowa(Double.parseDouble(s.nextLine()));
 					}catch(NumberFormatException e) {
 						
 					}
 					break;
 				case 3:
 					try {
-						ilosc = s.nextDouble();
+						ilosc = Double.parseDouble(s.nextLine());
 					}catch(NumberFormatException e) {
 						
 					}
@@ -165,7 +180,7 @@ public class Magazyn implements Serializable {
 	public void wyswietlAsortyment() {
 		for(Produkt p : this.produkty.keySet()) {
 			System.out.println("====================");
-			System.out.println(p.getNazwa()+"\t\t\t"+p.getCenaJednostkowa()+"/"+p.getJednostka().toString());
+			System.out.println(p.getNazwa()+"\t\t\t"+p.getCenaJednostkowa()+"/"+p.getJednostka().nazwa);
 			System.out.println("Producent "+p.getProducent());
 		}
 	}
@@ -182,5 +197,18 @@ public class Magazyn implements Serializable {
 	private void usunProdukt(Produkt produkt) {
 		produkty.remove(produkt);
 	}
-	
+
+	public void zapiszProdukty() {
+		FileOperations.checkFiles();
+		FileOperations.zapiszObiekt(produkty, FileOperations.produkty.getAbsolutePath());
+	}
+
+	public Produkt znajdzProdukt(String nazwa, String producent) {
+		for (Produkt produkt : produkty.keySet()) {
+			if (produkt.getNazwa().equalsIgnoreCase(nazwa) && produkt.getProducent().equalsIgnoreCase(producent)) {
+				return produkt;
+			}
+		}
+		return null;
+	}
 }

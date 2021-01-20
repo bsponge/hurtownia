@@ -3,6 +3,7 @@ package me.jSkiba;
 import me.bRosiak.Magazyn;
 import me.bRosiak.Produkt;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,8 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * Reprezentuje koszyk klienta
  * @author Jakub Skiba
  */
-public class Koszyk {
-    private Map<Produkt, Integer> produkty;
+public class Koszyk implements Serializable {
+    private static final long serialVersionUID = 3L;
+    private ConcurrentHashMap<Produkt, Integer> produkty;
 
     /**
      * Tworzy pusty koszyk
@@ -71,5 +73,22 @@ public class Koszyk {
         }
         Koszyk koszyk = (Koszyk) object;
         return produkty.equals(koszyk.produkty);
+    }
+
+    public void wyswietlProdukty() {
+        if (produkty.isEmpty()) {
+            System.out.println("Twoj koszyk jest pusty.");
+        } else {
+            System.out.println("====Koszyk====");
+            int licznik = 1;
+            for (Produkt produkt : produkty.keySet()) {
+                System.out.println(licznik);
+                System.out.println("\t\tNazwa: " + produkt.getNazwa());
+                System.out.println("\t\tProducent: " + produkt.getProducent());
+                System.out.println("\t\tIlosc: " + produkty.get(produkt));
+                System.out.println("\t\tJednostka: " + produkt.getJednostka());
+                System.out.println();
+            }
+        }
     }
 }

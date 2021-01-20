@@ -4,7 +4,6 @@ import me.sRewilak.Platnosci;
 import me.sRewilak.Zamowienie;
 import org.junit.Before;
 import org.junit.Test;
-import me.sRewilak.Platnosci;
 
 import java.util.Date;
 
@@ -17,11 +16,12 @@ public class PlatnosciTest {
     public Klient klient;
     public Koszyk koszyk;
 
-    @Before
+    @SuppressWarnings("deprecation")
+	@Before
     public void init(){
         klient = new Klient("Imie", "Nazwisko");
         koszyk = new Koszyk();
-        platnosci = platnosci.getInstance();
+        platnosci = Platnosci.getInstance();
         zamowienie = new Zamowienie(klient, "Kraj", "Miejscowosc", "Ulica", "Kod",
                 new Date(2020,01,01), koszyk,1);
     }
@@ -33,9 +33,18 @@ public class PlatnosciTest {
 
     @Test
     public void dodajStatusTest(){
-        platnosci.dodajStatus(zamowienie.getIdZamowienia(), false);
+        platnosci.dodajStatus(zamowienie.getIdZamowienia(), 1);
         assertEquals(false, platnosci.getStatus(zamowienie.getIdZamowienia()));
     }
+
+    @Test
+    public void setStatusTest(){
+        // Sprawdza czy stan zamowienia sie zmieni
+        assertFalse(platnosci.getStatus(zamowienie.getIdZamowienia()));
+        platnosci.setStatus(zamowienie.getIdZamowienia(),true);
+        assertTrue(platnosci.getStatus(zamowienie.getIdZamowienia()));
+    }
+
 
     @Test
     public void usunStatusTest(){
