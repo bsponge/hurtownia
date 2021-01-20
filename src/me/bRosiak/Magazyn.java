@@ -142,14 +142,14 @@ public class Magazyn implements Serializable {
 					break;
 				case 2:
 					try {
-						produkt.setCenaJednostkowa(s.nextDouble());
+						produkt.setCenaJednostkowa(Double.parseDouble(s.nextLine()));
 					}catch(NumberFormatException e) {
 						
 					}
 					break;
 				case 3:
 					try {
-						ilosc = s.nextDouble();
+						ilosc = Double.parseDouble(s.nextLine());
 					}catch(NumberFormatException e) {
 						
 					}
